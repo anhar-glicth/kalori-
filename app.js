@@ -51,12 +51,12 @@ const AppState = {
   }
 };
 
-// Database of Student Budget Recipes (Under $2)
+// Database of Student Budget Recipes (Under Rp 30.000)
 const BUDGET_MEALS = [
   {
     id: 'bm-1',
     name: 'Oatmeal w/ Banana & Peanut Butter',
-    price: '$1.20',
+    price: 'Rp 18.000',
     calories: 380,
     protein: 10,
     carbs: 55,
@@ -66,7 +66,7 @@ const BUDGET_MEALS = [
   {
     id: 'bm-2',
     name: 'Egg & Spinach Scramble Toast',
-    price: '$1.50',
+    price: 'Rp 22.000',
     calories: 290,
     protein: 18,
     carbs: 20,
@@ -76,7 +76,7 @@ const BUDGET_MEALS = [
   {
     id: 'bm-3',
     name: 'Rice & Black Beans Bowl',
-    price: '$1.80',
+    price: 'Rp 27.000',
     calories: 480,
     protein: 14,
     carbs: 78,
@@ -86,7 +86,7 @@ const BUDGET_MEALS = [
   {
     id: 'bm-4',
     name: 'Tuna Salad Lettuce Wraps',
-    price: '$1.95',
+    price: 'Rp 29.000',
     calories: 310,
     protein: 26,
     carbs: 8,
