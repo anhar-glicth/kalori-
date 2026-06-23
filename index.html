@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CaloScan - Clickable Calorie Tracking & Nutrient breakdown app mock.">
-  <title>CaloScan - Calorie Tracker</title>
+  <meta name="description" content="BudgetCal - Clickable Student Budget Calorie & Cheap Meal Tracking app.">
+  <title>BudgetCal - Student Calorie Tracker</title>
   <!-- Google Fonts: Inter and Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +43,7 @@
             <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150" alt="User Profile" class="avatar-img" id="header-avatar">
             <span class="premium-badge-dot" id="header-premium-dot"></span>
           </div>
-          <h1 class="brand-title">CaloScan</h1>
+          <h1 class="brand-title">BudgetCal</h1>
           <button class="settings-btn" id="header-settings-btn" aria-label="Settings">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="3"></circle>
@@ -52,29 +52,27 @@
           </button>
         </header>
 
-
-
         <!-- Dynamic Main Scrollable Screens Area -->
         <main class="app-main-content">
 
-          <!-- SCREEN 1: HOME (DASHBOARD) -->
+          <!-- SCREEN 1: HOME (STUDENT DASHBOARD) -->
           <section id="screen-home" class="screen active">
             <div class="welcome-message">
               <h2>Hello, <span class="username-display">User</span></h2>
-              <p>Your metabolism is peaking. Keep it up!</p>
+              <p>Healthy student food hacks. Keep it up!</p>
             </div>
 
             <!-- Target Rings & Daily Target Card -->
             <div class="card daily-target-card">
               <div class="target-card-header">
-                <span class="card-subtitle">DAILY TARGET</span>
-                <span class="card-title-value"><span id="target-calories-text">1,840</span> <span class="unit">kcal</span></span>
+                <span class="card-subtitle">DAILY BUDGET CALORIES</span>
+                <span class="card-title-value" style="font-size: 26px;">Target: <span id="target-calories-text">2,200</span> <span class="unit">kcal/Day</span></span>
                 <span class="card-remaining-desc"><span id="remaining-calories-text">640</span> kcal remaining</span>
               </div>
               <div class="progress-ring-container">
                 <svg class="progress-ring" width="100" height="100">
                   <circle class="progress-ring-bg" stroke="rgba(0, 200, 0, 0.1)" stroke-width="8" fill="transparent" r="42" cx="50" cy="50"/>
-                  <circle class="progress-ring-bar" id="home-progress-bar" stroke="var(--neon-green)" stroke-width="8" fill="transparent" r="42" cx="50" cy="50"/>
+                  <circle class="progress-ring-bar" id="home-progress-bar" stroke="var(--mint-green)" stroke-width="8" fill="transparent" r="42" cx="50" cy="50"/>
                 </svg>
                 <div class="progress-ring-center">
                   <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" class="fire-icon">
@@ -125,7 +123,7 @@
             <!-- Scan Banner Button -->
             <div class="scan-banner-btn" id="scan-banner-btn">
               <div class="scan-banner-info">
-                <h3>Scan Your Meal</h3>
+                <h3>Scan Student Meal</h3>
                 <p>Instant nutrient breakdown</p>
               </div>
               <div class="scan-banner-icon-bg">
@@ -153,17 +151,33 @@
               </div>
             </div>
 
+            <!-- Healthy Student Meals (Under $2) -->
+            <div class="meals-under-two-section">
+              <h3 class="section-title">Healthy Student Meals (Under $2)</h3>
+              <div class="meals-grid" id="budget-meals-list">
+                <!-- Clickable meal cards populated by JavaScript -->
+              </div>
+            </div>
+
             <!-- Recent Activity -->
-            <div class="activity-section">
+            <div class="activity-section" style="margin-top: 20px;">
               <div class="section-header">
                 <h3>Recent Activity</h3>
                 <button class="view-all-btn" id="btn-view-all">VIEW ALL &rsaquo;</button>
               </div>
 
               <div class="activity-list" id="home-recent-activity-list">
-                <!-- Template Activity Item (Mock data or loaded states) -->
                 <!-- Filled dynamically by JavaScript -->
               </div>
+            </div>
+
+            <!-- Checks Counter Prominent Badge at the bottom of home dashboard -->
+            <div class="free-limit-badge dashboard-badge" id="free-limit-badge-card" style="margin: 16px 0;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" class="badge-lock-icon">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>Daily Free Calorie Checks: <strong id="free-check-counter">2/3 used</strong></span>
             </div>
 
             <!-- Metabolic Insight Card -->
@@ -193,7 +207,7 @@
             <div class="insights-target-circle-container">
               <div class="target-glow-ring">
                 <div class="target-inner-ring">
-                  <span class="insights-kcal-value" id="insights-target-val">2,100</span>
+                  <span class="insights-kcal-value" id="insights-target-val">2,200</span>
                   <span class="insights-kcal-sub">KCAL TARGET</span>
                 </div>
               </div>
@@ -252,15 +266,6 @@
               </div>
             </div>
 
-            <!-- Free Check Status Limit Badge -->
-            <div class="free-limit-badge" id="free-limit-badge-card">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="badge-lock-icon">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
-              <span>FREE DATA CHECKS: <strong id="free-check-counter">2 OF 3 USED</strong></span>
-            </div>
-
             <!-- Check Calorie Data Trigger Button -->
             <button class="main-action-btn check-calorie-btn" id="btn-check-calorie-data">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -277,9 +282,6 @@
               <div class="welcome-left">
                 <h2>History</h2>
               </div>
-              <div class="settings-gear-container">
-                <!-- Mini Settings Gear for top header visual match -->
-              </div>
             </div>
 
             <!-- Historical Log Groups -->
@@ -289,7 +291,7 @@
               <div class="history-group">
                 <h3 class="group-title">October 2023</h3>
                 <div class="history-items-list" id="history-items-october">
-                  <!-- Filled dynamically or hardcoded fallback matching designs -->
+                  <!-- Filled dynamically -->
                 </div>
               </div>
 
@@ -351,10 +353,10 @@
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
                   <path d="M12 2L1 21h22L12 2zm0 4l7.53 13H4.47L12 6zm-1 6v4h2v-4h-2zm0-3v2h2V9h-2z"/>
                 </svg>
-                Premium unlocked
+                Pro unlocked
               </div>
               <div class="premium-status-pill locked" id="profile-free-status-badge">
-                Free Account
+                Free Student Account
               </div>
             </div>
 
@@ -364,7 +366,7 @@
               
               <div class="setting-form-group">
                 <label for="input-daily-target">Daily Target Calorie (kcal)</label>
-                <input type="number" id="input-daily-target" value="1840" min="100" max="10000" step="50">
+                <input type="number" id="input-daily-target" value="2200" min="100" max="10000" step="50">
               </div>
 
               <div class="setting-form-group">
@@ -380,7 +382,10 @@
                 </select>
               </div>
 
-              <button class="save-settings-btn" id="btn-save-profile">Save Targets</button>
+              <div style="display: flex; gap: 8px; margin-top: 10px;">
+                <button class="save-settings-btn" id="btn-save-profile" style="flex: 2;">Save Targets</button>
+                <button class="save-settings-btn" id="btn-trigger-reprofile" style="flex: 1; background-color: var(--gold-dark);">Re-Profile</button>
+              </div>
             </div>
 
             <!-- Premium Simulation Card -->
@@ -392,9 +397,9 @@
                 </svg>
               </div>
               <div class="promo-details">
-                <h3>Go Premium</h3>
-                <p>Unlock unlimited scans, deep body analysis & metabolic health trends.</p>
-                <button class="promo-action-btn" id="btn-promo-go-premium">Unlock Unlimited Access</button>
+                <h3>Upgrade to Student Pro</h3>
+                <p>Unlock unlimited checks, locked cheap recipes under $2, and monthly grocery budgeting tools.</p>
+                <button class="promo-action-btn" id="btn-promo-go-premium">Unlock Student Pro</button>
               </div>
             </div>
             
@@ -403,16 +408,57 @@
                 <span class="active-badge-checkmark">✓</span>
               </div>
               <div class="promo-details">
-                <h3>Premium Active</h3>
-                <p>Enjoy unlimited scans and daily metabolic trend analysis reports.</p>
-                <button class="promo-action-btn reset-btn" id="btn-reset-app">Reset Scan Data / Demo</button>
+                <h3>Student Pro Active</h3>
+                <p>Enjoy unlimited calorie checks, locked recipes unlocked, and full budgeting tools.</p>
+                <button class="promo-action-btn reset-btn" id="btn-reset-app">Reset App Demo</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- SCREEN 5: BUDGET GROCERY SHOPPING -->
+          <section id="screen-shopping" class="screen">
+            <div class="welcome-message">
+              <h2>Belanja Hemat</h2>
+              <p>Low budget & low calorie grocery list</p>
+            </div>
+
+            <!-- Shopping List Card -->
+            <div class="card shopping-list-card">
+              <div class="shopping-list-header">
+                <h3 class="settings-title" style="margin-bottom: 4px;">Student Grocery Checklist</h3>
+                <p style="font-size: 11px; color: var(--text-sub); margin-bottom: 14px;">Select items to build your budget grocery basket.</p>
+              </div>
+
+              <div class="grocery-items-container" id="grocery-items-list">
+                <!-- Loaded dynamically from app.js -->
+              </div>
+
+              <div class="shopping-summary-box">
+                <div class="summary-row">
+                  <span>Estimated Cost:</span>
+                  <strong id="shopping-total-cost">$0.00</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Total Calories:</span>
+                  <strong id="shopping-total-calories">0 kcal</strong>
+                </div>
+                <button class="save-settings-btn" id="btn-clear-grocery" style="margin-top: 10px; background-color: var(--text-sub);">Reset Basket</button>
+              </div>
+            </div>
+
+            <!-- Budget Tip Card -->
+            <div class="card insight-card" style="background-color: var(--mint-green-light); border-color: rgba(0,200,100,0.15); margin-bottom: 0;">
+              <div class="insight-icon-box" style="background-color: var(--mint-green); color: var(--dark-green); display: flex; align-items: center; justify-content: center; font-size: 16px;">
+                💡
+              </div>
+              <div class="insight-content">
+                <span class="insight-tag" style="color: var(--dark-green); font-weight: 800;">SHOPPING TIP</span>
+                <p style="color: var(--dark-green); margin-top: 4px; font-size: 12px; line-height: 1.4;">Buying bulk oats, dry black beans, and local tofu provides the highest protein-to-cost ratio for students.</p>
               </div>
             </div>
           </section>
 
         </main>
-
-
 
         <!-- Bottom Navigation Bar -->
         <nav class="app-nav-bar">
@@ -445,6 +491,17 @@
             <span class="tab-label" id="tab-scan-label">Scan</span>
           </button>
 
+          <button class="nav-tab" data-screen="shopping" id="tab-shopping">
+            <div class="tab-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+            </div>
+            <span class="tab-label">Belanja</span>
+          </button>
+
           <button class="nav-tab" data-screen="history" id="tab-history">
             <div class="tab-icon-box">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
@@ -469,9 +526,9 @@
         <!-- Phone Home Indicator Bar at very bottom -->
         <div class="phone-home-indicator"></div>
 
-        <!-- OVERLAY 1: LIMIT REACHED MODAL (BOTTOM DRAWER SHEET) -->
+        <!-- OVERLAY 1: LIMIT REACHED MODAL (BOTTOM DRAWER SHEET / PAYWALL POP-UP) -->
         <div class="modal-overlay" id="overlay-limit-reached">
-          <div class="bottom-sheet">
+          <div class="bottom-sheet glassmorphism-paywall">
             <!-- Drag handle -->
             <div class="sheet-drag-handle"></div>
             
@@ -487,26 +544,31 @@
                 </svg>
               </div>
 
-              <h3 class="limit-title">Limit Reached</h3>
-              <p class="limit-desc">You've used your 3 free scans for today. Go Premium for unlimited checks and deep body insights.</p>
+              <h3 class="limit-title">Keep Cooking Healthy!</h3>
+              <p class="limit-desc">You've used your 3 free checks today. Upgrade to Student Pro for unlimited checks, locked cheap recipes, and monthly grocery budgeting tools.</p>
 
               <div class="benefit-item">
                 <span class="benefit-icon">∞</span>
-                <span class="benefit-text">Unlimited Scans</span>
+                <span class="benefit-text">Unlimited Calorie Checks</span>
               </div>
 
               <div class="benefit-item">
-                <span class="benefit-icon">📈</span>
-                <span class="benefit-text">Metabolic Health Trends</span>
+                <span class="benefit-icon">🍳</span>
+                <span class="benefit-text">Locked Cheap Recipes (Under $2)</span>
               </div>
 
-              <button class="unlock-premium-btn" id="btn-unlock-unlimited">Unlock Unlimited Access</button>
+              <div class="benefit-item">
+                <span class="benefit-icon">📊</span>
+                <span class="benefit-text">Monthly Grocery Budgeting Tools</span>
+              </div>
+
+              <button class="unlock-premium-btn" id="btn-unlock-unlimited">Upgrade to Student Pro</button>
               <span class="no-commitment-text">NO COMMITMENT. CANCEL ANYTIME.</span>
             </div>
           </div>
         </div>
 
-        <!-- OVERLAY 2: CAMERA/AI SCAN SIMULATOR -->
+        <!-- OVERLAY 2: CAMERA/SCAN SIMULATOR -->
         <div class="modal-overlay" id="overlay-scan-simulator">
           <div class="scanner-screen">
             <!-- Camera Finder Grid -->
@@ -536,7 +598,7 @@
               <!-- Bottom Sheet Result Panel (Slides up when detection resolves) -->
               <div class="scanner-result-sheet" id="scanner-result-sheet">
                 <div class="result-drag-indicator"></div>
-                <h4 class="result-headline">Recognition Found</h4>
+                <h4 class="result-headline">Food Recognition Found</h4>
                 
                 <div class="recognized-food-card">
                   <div class="food-avatar-box">
@@ -624,9 +686,68 @@
                 <path d="M12 6l1.8 3.6 4.1.3-3 2.7.9 4-3.8-2.3L8.2 16.6l.9-4-3-2.7 4.1-.3z" fill="gold"></path>
               </svg>
             </div>
-            <h2>Premium Activated!</h2>
-            <p>Congratulations, you now have unlimited scans and advanced metabolic trend tracking.</p>
-            <button class="celebration-close-btn" id="btn-close-celebration">Start Using Premium</button>
+            <h2>Student Pro Activated!</h2>
+            <p>Congratulations, you now have unlimited calorie checks, locked recipes unlocked, and full budgeting tools.</p>
+            <button class="celebration-close-btn" id="btn-close-celebration">Start Using Student Pro</button>
+          </div>
+        </div>
+
+        <!-- OVERLAY 5: ONBOARDING USER PROFILING FORM -->
+        <div class="modal-overlay" id="overlay-onboarding">
+          <div class="onboarding-screen">
+            <div class="onboarding-header">
+              <h2 class="onboarding-title">Profile Onboarding</h2>
+              <p class="onboarding-subtitle">Enter your details to calculate your daily budget calories</p>
+            </div>
+
+            <form class="onboarding-form" id="onboarding-profile-form" onsubmit="return false;">
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label for="profile-age">Age (Tahun)</label>
+                  <input type="number" id="profile-age" placeholder="20" min="1" max="100" required>
+                </div>
+                <div class="form-group">
+                  <label>Gender</label>
+                  <div class="gender-selector-group">
+                    <button type="button" class="gender-pill-btn active" data-gender="male" id="gender-male">Male</button>
+                    <button type="button" class="gender-pill-btn" data-gender="female" id="gender-female">Female</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label for="profile-height">Height (TB - cm)</label>
+                  <input type="number" id="profile-height" placeholder="170" min="80" max="250" required>
+                </div>
+                <div class="form-group">
+                  <label for="profile-weight">Weight (BB - kg)</label>
+                  <input type="number" id="profile-weight" placeholder="60" min="20" max="200" required>
+                </div>
+              </div>
+
+              <div class="form-group slider-group">
+                <div class="slider-label-row">
+                  <label for="profile-activity">Activity Level</label>
+                  <span class="slider-value-display" id="activity-value-text">Sedentary</span>
+                </div>
+                <input type="range" id="profile-activity" min="1" max="4" value="1" step="1" class="activity-range-slider">
+                <div class="slider-ticks">
+                  <span>Sedentary</span>
+                  <span>Light</span>
+                  <span>Active</span>
+                  <span>Very Active</span>
+                </div>
+              </div>
+
+              <button type="submit" class="submit-profile-btn" id="btn-calculate-calories">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Calculate Daily Calories
+              </button>
+            </form>
           </div>
         </div>
 

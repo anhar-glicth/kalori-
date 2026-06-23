@@ -1,36 +1,43 @@
-// Application State Manager
+// Application State Manager for BudgetCal
 const AppState = {
   username: 'Jessica Doe',
-  dailyTarget: 1840,
+  dailyTarget: 2200,
   waterIntake: 1.8,
   freeScansUsed: 2, // Matches the mockup screen default (2 of 3 used)
   isPremium: false,
-  layoutMode: 'scan', // 'scan' (default) or 'input' (alternative checklist mode)
+  layoutMode: 'scan',
+  isProfiled: false, // Set to false to trigger onboarding profiling form on initial run!
+  age: 20,
+  gender: 'male',
+  activityLevel: 1,
+  height: 170,
+  weight: 60,
+  selectedGroceryIds: [], // Track check status for Grocery List
   logs: [
     {
       id: 1,
-      name: 'Grilled Salmon Bowl',
-      calories: 540,
-      protein: 38,
-      carbs: 45,
-      fats: 22,
-      fiber: 8,
+      name: 'Rice & Black Beans Bowl',
+      calories: 480,
+      protein: 14,
+      carbs: 78,
+      fats: 8,
+      fiber: 9,
       time: 'Today, 1:24 PM',
-      timestamp: Date.now() - 2 * 60 * 60 * 1000 // 2 hours ago
+      timestamp: Date.now() - 2 * 60 * 60 * 1000
     },
     {
       id: 2,
-      name: 'Avocado Toast & Egg',
-      calories: 385,
-      protein: 16,
-      carbs: 28,
-      fats: 21,
-      fiber: 6,
+      name: 'Egg & Spinach Scramble Toast',
+      calories: 290,
+      protein: 18,
+      carbs: 20,
+      fats: 15,
+      fiber: 3,
       time: 'Yesterday, 8:45 AM',
-      timestamp: Date.now() - 27 * 60 * 60 * 1000 // 27 hours ago
+      timestamp: Date.now() - 27 * 60 * 60 * 1000
     }
   ],
-  // Pre-filled history items matching mockup designs
+  // Pre-filled history items
   history: {
     october: [
       { id: 101, date: 'Oct 24, 2023', time: '08:45 AM', calories: 2450, img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=100&h=100' },
@@ -44,77 +51,121 @@ const AppState = {
   }
 };
 
-// Database of Simulated Food Items for AI Scan
+// Database of Student Budget Recipes (Under $2)
+const BUDGET_MEALS = [
+  {
+    id: 'bm-1',
+    name: 'Oatmeal w/ Banana & Peanut Butter',
+    price: '$1.20',
+    calories: 380,
+    protein: 10,
+    carbs: 55,
+    fats: 14,
+    img: 'https://images.unsplash.com/photo-1517881917430-e70dfb3610aa?auto=format&fit=crop&q=80&w=150&h=100'
+  },
+  {
+    id: 'bm-2',
+    name: 'Egg & Spinach Scramble Toast',
+    price: '$1.50',
+    calories: 290,
+    protein: 18,
+    carbs: 20,
+    fats: 15,
+    img: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=150&h=100'
+  },
+  {
+    id: 'bm-3',
+    name: 'Rice & Black Beans Bowl',
+    price: '$1.80',
+    calories: 480,
+    protein: 14,
+    carbs: 78,
+    fats: 8,
+    img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=150&h=100'
+  },
+  {
+    id: 'bm-4',
+    name: 'Tuna Salad Lettuce Wraps',
+    price: '$1.95',
+    calories: 310,
+    protein: 26,
+    carbs: 8,
+    fats: 18,
+    img: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&q=80&w=150&h=100'
+  }
+];
+
+// Database of Low-Budget, Low-Calorie Groceries
+const GROCERY_ITEMS = [
+  { id: 'gr-1', name: 'Telur Ayam (6 butir)', price: 1.20, calories: 420, detail: 'Sumber protein murah berkualitas' },
+  { id: 'gr-2', name: 'Tahu Putih Sutra (300g)', price: 0.80, calories: 225, detail: 'Sangat rendah kalori & tinggi protein nabati' },
+  { id: 'gr-3', name: 'Tempe Block (200g)', price: 0.95, calories: 380, detail: 'Padat nutrisi, berserat tinggi & murah' },
+  { id: 'gr-4', name: 'Rolled Oats (500g)', price: 1.50, calories: 1850, detail: 'Karbohidrat kompleks pengenyang lama' },
+  { id: 'gr-5', name: 'Bayam Segar (1 ikat)', price: 0.75, calories: 45, detail: 'Kaya zat besi & vitamin, super rendah kalori' },
+  { id: 'gr-6', name: 'Tuna Kaleng (in Water)', price: 1.85, calories: 180, detail: 'Protein murni, praktis tanpa lemak tambahan' },
+  { id: 'gr-7', name: 'Greek Yogurt Plain (500g)', price: 1.90, calories: 295, detail: 'Tinggi kalsium & protein, bagus untuk pencernaan' },
+  { id: 'gr-8', name: 'Dada Ayam Fillet (250g)', price: 1.95, calories: 275, detail: 'Sumber protein hewani paling populer untuk diet' }
+];
+
+// Database of Simulated Food Items for Scanner
 const SIMULATED_FOODS = [
   {
-    name: 'Protein Power Beef Bowl',
-    calories: 620,
-    protein: 42,
-    carbs: 55,
-    fats: 18,
-    fiber: 6,
-    img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=150&h=150'
-  },
-  {
-    name: 'Greek Avocado Salad',
-    calories: 310,
-    protein: 8,
-    carbs: 14,
-    fats: 26,
-    fiber: 7,
-    img: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&q=80&w=150&h=150'
-  },
-  {
-    name: 'Vibrant Acai Berry Cup',
-    calories: 280,
-    protein: 6,
+    name: 'Instant Noodle w/ Egg',
+    calories: 420,
+    protein: 12,
     carbs: 58,
-    fats: 4,
-    fiber: 9,
-    img: 'https://images.unsplash.com/photo-1494597564530-871f2b93ac55?auto=format&fit=crop&q=80&w=150&h=150'
-  },
-  {
-    name: 'Pepperoni Flatbread Pizza',
-    calories: 440,
-    protein: 18,
-    carbs: 48,
-    fats: 20,
+    fats: 16,
     fiber: 2,
-    img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=150&h=150'
+    img: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&q=80&w=150&h=150'
   },
   {
-    name: 'Sushi Bento Combination',
-    calories: 520,
-    protein: 24,
-    carbs: 72,
-    fats: 12,
+    name: 'Peanut Butter Jelly Sandwich',
+    calories: 350,
+    protein: 9,
+    carbs: 48,
+    fats: 14,
+    fiber: 4,
+    img: 'https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&q=80&w=150&h=150'
+  },
+  {
+    name: 'Boiled Egg & Potatoes',
+    calories: 280,
+    protein: 10,
+    carbs: 38,
+    fats: 10,
     fiber: 3,
-    img: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&q=80&w=150&h=150'
+    img: 'https://images.unsplash.com/photo-1511117496869-d93333333333?auto=format&fit=crop&q=80&w=150&h=150'
+  },
+  {
+    name: 'Canned Chili Rice Cup',
+    calories: 520,
+    protein: 22,
+    carbs: 74,
+    fats: 15,
+    fiber: 8,
+    img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=150&h=150'
   }
 ];
 
 // Document Elements
 const DOM = {
-  // Screens
   screens: {
     home: document.getElementById('screen-home'),
     insights: document.getElementById('screen-insights'),
+    shopping: document.getElementById('screen-shopping'), // Added Shopping screen
     history: document.getElementById('screen-history'),
     profile: document.getElementById('screen-profile')
   },
-  // Nav tabs
   tabs: {
     home: document.getElementById('tab-home'),
     scan: document.getElementById('tab-scan'),
+    shopping: document.getElementById('tab-shopping'), // Added Shopping tab
     history: document.getElementById('tab-history'),
     profile: document.getElementById('tab-profile')
   },
-  // Tab Bar Sub-Elements
   tabScanLabel: document.getElementById('tab-scan-label'),
   scanBarcodeIcon: document.getElementById('nav-scan-barcode-icon'),
   scanListIcon: document.getElementById('nav-scan-list-icon'),
-  
-  // Header profile badge
   headerAvatarBtn: document.getElementById('header-avatar-btn'),
   headerPremiumDot: document.getElementById('header-premium-dot'),
   headerSettingsBtn: document.getElementById('header-settings-btn'),
@@ -138,6 +189,13 @@ const DOM = {
   inputBannerBtn: document.getElementById('input-banner-btn'),
   recentActivityList: document.getElementById('home-recent-activity-list'),
   btnViewAll: document.getElementById('btn-view-all'),
+  budgetMealsList: document.getElementById('budget-meals-list'),
+
+  // Shopping Screen Elements
+  groceryItemsList: document.getElementById('grocery-items-list'),
+  shoppingTotalCost: document.getElementById('shopping-total-cost'),
+  shoppingTotalCalories: document.getElementById('shopping-total-calories'),
+  btnClearGrocery: document.getElementById('btn-clear-grocery'),
 
   // Insights Screen Elements
   insightsTargetVal: document.getElementById('insights-target-val'),
@@ -164,6 +222,7 @@ const DOM = {
   inputUsername: document.getElementById('input-username'),
   layoutModeSelector: document.getElementById('layout-mode-selector'),
   btnSaveProfile: document.getElementById('btn-save-profile'),
+  btnTriggerReprofile: document.getElementById('btn-trigger-reprofile'),
   premiumPromoPanel: document.getElementById('premium-promo-panel'),
   premiumActivePanel: document.getElementById('premium-active-panel'),
   btnPromoGoPremium: document.getElementById('btn-promo-go-premium'),
@@ -175,7 +234,8 @@ const DOM = {
     limitReached: document.getElementById('overlay-limit-reached'),
     scanSimulator: document.getElementById('overlay-scan-simulator'),
     manualInput: document.getElementById('overlay-manual-input'),
-    premiumCelebration: document.getElementById('overlay-premium-celebration')
+    premiumCelebration: document.getElementById('overlay-premium-celebration'),
+    onboarding: document.getElementById('overlay-onboarding')
   },
   
   // Close / action buttons in overlays
@@ -200,20 +260,35 @@ const DOM = {
   btnCloseCelebration: document.getElementById('btn-close-celebration'),
   confettiContainer: document.getElementById('confetti-container'),
 
+  // Onboarding profiling form
+  onboardingForm: document.getElementById('onboarding-profile-form'),
+  profileAge: document.getElementById('profile-age'),
+  genderMale: document.getElementById('gender-male'),
+  genderFemale: document.getElementById('gender-female'),
+  profileHeight: document.getElementById('profile-height'),
+  profileWeight: document.getElementById('profile-weight'),
+  profileActivity: document.getElementById('profile-activity'),
+  activityValueText: document.getElementById('activity-value-text'),
+  btnCalculateCalories: document.getElementById('btn-calculate-calories'),
+
   // Toast
   toastNotify: document.getElementById('toast-notify')
 };
 
-// Global active simulated food scan holder
+// Global simulated food scan holder
 let activeScannedFood = null;
 
 // Initialize app config
 function init() {
   loadLocalStorage();
   updateTime();
-  setInterval(updateTime, 60000); // Update clock status bar every minute
+  setInterval(updateTime, 60000);
   setupEventListeners();
   renderApp();
+  
+  if (!AppState.isProfiled) {
+    openOverlay('onboarding');
+  }
 }
 
 // Update the phone status bar time
@@ -228,7 +303,7 @@ function updateTime() {
 
 // Local Storage Handlers
 function loadLocalStorage() {
-  const savedState = localStorage.getItem('caloscan_state');
+  const savedState = localStorage.getItem('budgetcal_state');
   if (savedState) {
     try {
       const parsed = JSON.parse(savedState);
@@ -238,28 +313,42 @@ function loadLocalStorage() {
       AppState.freeScansUsed = Number(parsed.freeScansUsed) !== undefined ? Number(parsed.freeScansUsed) : AppState.freeScansUsed;
       AppState.isPremium = parsed.isPremium || false;
       AppState.layoutMode = parsed.layoutMode || AppState.layoutMode;
+      AppState.isProfiled = parsed.isProfiled !== undefined ? parsed.isProfiled : AppState.isProfiled;
+      AppState.age = Number(parsed.age) || AppState.age;
+      AppState.gender = parsed.gender || AppState.gender;
+      AppState.activityLevel = Number(parsed.activityLevel) || AppState.activityLevel;
+      AppState.height = Number(parsed.height) || AppState.height;
+      AppState.weight = Number(parsed.weight) || AppState.weight;
+      AppState.selectedGroceryIds = parsed.selectedGroceryIds || AppState.selectedGroceryIds;
       AppState.logs = parsed.logs || AppState.logs;
     } catch (e) {
-      console.error('Failed to load local storage state, using defaults', e);
+      console.error('Failed to load local storage state', e);
     }
   }
 }
 
 function saveLocalStorage() {
-  localStorage.setItem('caloscan_state', JSON.stringify({
+  localStorage.setItem('budgetcal_state', JSON.stringify({
     username: AppState.username,
     dailyTarget: AppState.dailyTarget,
     waterIntake: AppState.waterIntake,
     freeScansUsed: AppState.freeScansUsed,
     isPremium: AppState.isPremium,
     layoutMode: AppState.layoutMode,
+    isProfiled: AppState.isProfiled,
+    age: AppState.age,
+    gender: AppState.gender,
+    activityLevel: AppState.activityLevel,
+    height: AppState.height,
+    weight: AppState.weight,
+    selectedGroceryIds: AppState.selectedGroceryIds,
     logs: AppState.logs
   }));
 }
 
 // Reset data (demo capability)
 function resetApp() {
-  localStorage.removeItem('caloscan_state');
+  localStorage.removeItem('budgetcal_state');
   location.reload();
 }
 
@@ -274,7 +363,6 @@ function showToast(message) {
 
 // Router: Change active screen
 function navigateTo(screenId) {
-  // If scan is clicked, handle layout routing logic
   if (screenId === 'scan') {
     if (AppState.layoutMode === 'scan') {
       openCameraScanner();
@@ -284,17 +372,14 @@ function navigateTo(screenId) {
     return;
   }
 
-  // Deactivate all screens
   Object.keys(DOM.screens).forEach(key => {
     DOM.screens[key].classList.remove('active');
   });
 
-  // Deactivate all navigation tabs
   Object.keys(DOM.tabs).forEach(key => {
     DOM.tabs[key].classList.remove('active');
   });
 
-  // Activate target
   if (DOM.screens[screenId]) {
     DOM.screens[screenId].classList.add('active');
   }
@@ -302,58 +387,65 @@ function navigateTo(screenId) {
     DOM.tabs[screenId].classList.add('active');
   }
 
-  // Scroll target screen to top
   const mainScroll = document.querySelector('.app-main-content');
   if (mainScroll) mainScroll.scrollTop = 0;
 }
 
 // Event Listeners setup
 function setupEventListeners() {
-  // Navigation tabs clicks
   Object.keys(DOM.tabs).forEach(key => {
     DOM.tabs[key].addEventListener('click', () => navigateTo(key));
   });
 
-  // Welcome avatar btn clicks to open Profile tab
   DOM.headerAvatarBtn.addEventListener('click', () => navigateTo('profile'));
   DOM.headerSettingsBtn.addEventListener('click', () => navigateTo('profile'));
 
-  // Home Screen Banners
   DOM.scanBannerBtn.addEventListener('click', openCameraScanner);
   DOM.inputBannerBtn.addEventListener('click', openManualInputModal);
 
-  // Water click tracking
   DOM.waterTrackerCard.addEventListener('click', trackWater);
 
-  // Modal Closures
   DOM.btnCloseLimitSheet.addEventListener('click', () => closeOverlay('limitReached'));
   DOM.btnCloseManualDialog.addEventListener('click', () => closeOverlay('manualInput'));
   DOM.btnCancelScan.addEventListener('click', closeCameraScanner);
 
-  // Scan Retry
   DOM.btnRetryScan.addEventListener('click', startSimulatedScanProcess);
-
-  // Log food recognized in camera
   DOM.btnAddRecognizedFood.addEventListener('click', logScannedFood);
 
-  // Unlock Premium Actions
   DOM.btnUnlockUnlimited.addEventListener('click', triggerUnlockPremium);
   DOM.btnPromoGoPremium.addEventListener('click', triggerUnlockPremium);
   DOM.btnCloseCelebration.addEventListener('click', closeCelebration);
 
-  // Manual Food log submission
   DOM.manualFoodForm.addEventListener('submit', logManualFood);
-
-  // Profile Settings Submit
   DOM.btnSaveProfile.addEventListener('click', saveProfileSettings);
-
-  // Reset App Simulator Button
   DOM.btnResetApp.addEventListener('click', resetApp);
-  
-  // View All click (sends to history)
   DOM.btnViewAll.addEventListener('click', () => navigateTo('history'));
 
-  // Insights Screen primary trigger button
+  DOM.btnClearGrocery.addEventListener('click', () => {
+    AppState.selectedGroceryIds = [];
+    saveLocalStorage();
+    renderApp();
+    showToast('Grocery basket reset');
+  });
+
+  DOM.btnTriggerReprofile.addEventListener('click', () => {
+    DOM.profileAge.value = AppState.age;
+    DOM.profileHeight.value = AppState.height;
+    DOM.profileWeight.value = AppState.weight;
+    DOM.profileActivity.value = AppState.activityLevel;
+    updateActivityDisplay(AppState.activityLevel);
+    
+    if (AppState.gender === 'male') {
+      DOM.genderMale.classList.add('active');
+      DOM.genderFemale.classList.remove('active');
+    } else {
+      DOM.genderFemale.classList.add('active');
+      DOM.genderMale.classList.remove('active');
+    }
+
+    openOverlay('onboarding');
+  });
+
   DOM.btnCheckCalorieData.addEventListener('click', () => {
     if (AppState.freeScansUsed >= 3 && !AppState.isPremium) {
       openOverlay('limitReached');
@@ -362,14 +454,12 @@ function setupEventListeners() {
     }
   });
 
-  // Edit Avatar dummy trigger
   DOM.btnEditAvatar.addEventListener('click', () => {
     const urls = [
       'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150',
       'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150',
       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150'
     ];
-    // Cycle avatar pictures on click
     const currentSrc = DOM.profileAvatarDisplay.src;
     let nextIndex = urls.indexOf(currentSrc) + 1;
     if (nextIndex >= urls.length || nextIndex === 0) nextIndex = 0;
@@ -377,9 +467,71 @@ function setupEventListeners() {
     document.getElementById('header-avatar').src = urls[nextIndex];
     showToast('Profile photo updated!');
   });
+
+  DOM.genderMale.addEventListener('click', () => {
+    DOM.genderMale.classList.add('active');
+    DOM.genderFemale.classList.remove('active');
+    AppState.gender = 'male';
+  });
+
+  DOM.genderFemale.addEventListener('click', () => {
+    DOM.genderFemale.classList.add('active');
+    DOM.genderMale.classList.remove('active');
+    AppState.gender = 'female';
+  });
+
+  DOM.profileActivity.addEventListener('input', (e) => {
+    updateActivityDisplay(parseInt(e.target.value));
+  });
+
+  DOM.onboardingForm.addEventListener('submit', calculateCaloriesOnboarding);
 }
 
-// Modal open/close overlays utilities
+function updateActivityDisplay(val) {
+  const levels = ['Sedentary', 'Lightly Active', 'Active', 'Very Active'];
+  DOM.activityValueText.textContent = levels[val - 1] || 'Sedentary';
+}
+
+// Mifflin-St Jeor Calorie Calculation
+function calculateCaloriesOnboarding(e) {
+  e.preventDefault();
+
+  const age = parseInt(DOM.profileAge.value);
+  const height = parseInt(DOM.profileHeight.value);
+  const weight = parseInt(DOM.profileWeight.value);
+  const activityVal = parseInt(DOM.profileActivity.value);
+  const gender = AppState.gender;
+
+  if (isNaN(age) || isNaN(height) || isNaN(weight)) {
+    alert('Please enter valid numerical values.');
+    return;
+  }
+
+  let bmr = 0;
+  if (gender === 'male') {
+    bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+  } else {
+    bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+  }
+
+  const factors = [1.2, 1.375, 1.55, 1.725];
+  const factor = factors[activityVal - 1] || 1.2;
+  const tdee = Math.round(bmr * factor);
+
+  AppState.age = age;
+  AppState.height = height;
+  AppState.weight = weight;
+  AppState.activityLevel = activityVal;
+  AppState.dailyTarget = tdee;
+  AppState.isProfiled = true;
+
+  saveLocalStorage();
+  renderApp();
+  closeOverlay('onboarding');
+  showToast(`Profile set! Target: ${tdee} kcal/Day`);
+}
+
+// Modal overlays
 function openOverlay(overlayId) {
   if (DOM.overlays[overlayId]) {
     DOM.overlays[overlayId].classList.add('open');
@@ -394,9 +546,8 @@ function closeOverlay(overlayId) {
 
 // Water tracker handler
 function trackWater() {
-  // Add 0.25L water
   AppState.waterIntake = parseFloat((AppState.waterIntake + 0.25).toFixed(2));
-  if (AppState.waterIntake > 5.0) AppState.waterIntake = 0.0; // limit and reset for loop tracking
+  if (AppState.waterIntake > 5.0) AppState.waterIntake = 0.0;
   saveLocalStorage();
   renderWaterSection();
   showToast('Water logged: +250ml');
@@ -430,14 +581,11 @@ function saveProfileSettings() {
 // Premium Upgrade simulation
 function triggerUnlockPremium() {
   closeOverlay('limitReached');
-  
-  // Activate premium
   AppState.isPremium = true;
   AppState.freeScansUsed = 0;
   saveLocalStorage();
   renderApp();
 
-  // Open confetti celebration overlay
   openOverlay('premiumCelebration');
   startConfettiAnimation();
 }
@@ -447,11 +595,10 @@ function closeCelebration() {
   stopConfettiAnimation();
 }
 
-// Confetti effects generator
 let confettiIntervalId = null;
 function startConfettiAnimation() {
   DOM.confettiContainer.innerHTML = '';
-  const colors = ['#00FF00', '#FFD700', '#FF4500', '#1E90FF', '#FF1493', '#ADFF2F'];
+  const colors = ['#00C964', '#FFD700', '#FF4500', '#1E90FF', '#FF1493', '#ADFF2F'];
   
   confettiIntervalId = setInterval(() => {
     const p = document.createElement('div');
@@ -464,21 +611,14 @@ function startConfettiAnimation() {
     
     DOM.confettiContainer.appendChild(p);
     
-    // Auto cleanup particles
     setTimeout(() => {
       p.remove();
     }, 3000);
   }, 100);
 }
 
-function stopConfettiAnimation() {
-  clearInterval(confettiIntervalId);
-  DOM.confettiContainer.innerHTML = '';
-}
-
-// Open Camera Simulator Overlay
+// Camera Simulator Overlay
 function openCameraScanner() {
-  // Check daily check counts
   if (AppState.freeScansUsed >= 3 && !AppState.isPremium) {
     openOverlay('limitReached');
     return;
@@ -490,38 +630,31 @@ function openCameraScanner() {
 
 function closeCameraScanner() {
   closeOverlay('scanSimulator');
-  // Reset scanner classes
   DOM.capturedMealBox.classList.add('hidden');
   DOM.scannerResultSheet.classList.remove('open');
   activeScannedFood = null;
 }
 
-// AI Camera Scanner Process Simulation
+// Scanner Process Simulation
 function startSimulatedScanProcess() {
-  // Initial states
   DOM.capturedMealBox.classList.add('hidden');
   DOM.scannerResultSheet.classList.remove('open');
   DOM.scannerStatusText.textContent = 'Align meal in frame...';
   activeScannedFood = null;
 
-  // Step 1: Wait 2.0s to simulate camera stabilization and then freeze
   setTimeout(() => {
-    if (!DOM.overlays.scanSimulator.classList.contains('open')) return; // check if user closed
+    if (!DOM.overlays.scanSimulator.classList.contains('open')) return;
     
-    // Choose a random food to recognized
     const index = Math.floor(Math.random() * SIMULATED_FOODS.length);
     activeScannedFood = SIMULATED_FOODS[index];
 
-    // Show simulated camera capture snapshot
     DOM.capturedMealImg.src = activeScannedFood.img;
     DOM.capturedMealBox.classList.remove('hidden');
     DOM.scannerStatusText.textContent = 'Analyzing nutrients...';
 
-    // Step 2: Wait 1.8s to simulate AI neural network loading details
     setTimeout(() => {
       if (!DOM.overlays.scanSimulator.classList.contains('open')) return;
 
-      // Populate results sheet
       DOM.recognizedFoodImg.src = activeScannedFood.img;
       DOM.recognizedFoodName.textContent = activeScannedFood.name;
       DOM.recognizedFoodCalories.textContent = `${activeScannedFood.calories} kcal`;
@@ -529,7 +662,6 @@ function startSimulatedScanProcess() {
       DOM.recCarbs.textContent = `${activeScannedFood.carbs}g`;
       DOM.recFats.textContent = `${activeScannedFood.fats}g`;
 
-      // Open bottom result slider sheet
       DOM.scannerResultSheet.classList.add('open');
       DOM.scannerStatusText.textContent = 'Analysis Complete';
     }, 1800);
@@ -537,7 +669,7 @@ function startSimulatedScanProcess() {
   }, 2000);
 }
 
-// Add the food item identified by scanner
+// Add scanned food
 function logScannedFood() {
   if (!activeScannedFood) return;
 
@@ -553,7 +685,7 @@ function logScannedFood() {
     timestamp: Date.now()
   };
 
-  AppState.logs.unshift(newLog); // Insert at beginning of log activity array
+  AppState.logs.unshift(newLog);
   
   if (!AppState.isPremium) {
     AppState.freeScansUsed += 1;
@@ -565,7 +697,7 @@ function logScannedFood() {
   showToast(`${newLog.name} logged!`);
 }
 
-// Manual Input Log Modal controllers
+// Manual Input Log
 function openManualInputModal() {
   DOM.manualFoodForm.reset();
   openOverlay('manualInput');
@@ -592,7 +724,7 @@ function logManualFood(e) {
     protein: protVal,
     carbs: carbVal,
     fats: fatVal,
-    fiber: Math.round(carbVal * 0.15) || 1, // calculate simulated fiber
+    fiber: Math.round(carbVal * 0.15) || 1,
     time: 'Today, ' + formatCurrentTime(),
     timestamp: Date.now()
   };
@@ -604,7 +736,30 @@ function logManualFood(e) {
   showToast(`${newLog.name} added!`);
 }
 
-// Delete log handler
+// Log a budget meal card click
+function logBudgetMeal(mealIndex) {
+  const meal = BUDGET_MEALS[mealIndex];
+  if (!meal) return;
+
+  const newLog = {
+    id: Date.now(),
+    name: meal.name,
+    calories: meal.calories,
+    protein: meal.protein,
+    carbs: meal.carbs,
+    fats: meal.fats,
+    fiber: Math.round(meal.carbs * 0.15) || 2,
+    time: 'Today, ' + formatCurrentTime(),
+    timestamp: Date.now()
+  };
+
+  AppState.logs.unshift(newLog);
+  saveLocalStorage();
+  renderApp();
+  showToast(`Budget meal: ${meal.name} logged!`);
+}
+
+// Delete log
 function deleteLog(id) {
   AppState.logs = AppState.logs.filter(item => item.id !== id);
   saveLocalStorage();
@@ -612,21 +767,19 @@ function deleteLog(id) {
   showToast('Food entry deleted');
 }
 
-// Helper: Formats local device time to readable format: "1:24 PM"
 function formatCurrentTime() {
   const date = new Date();
   let hours = date.getHours();
   let minutes = date.getMinutes();
   const ampm = hours >= 12 ? 'PM' : 'AM';
   hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
+  hours = hours ? hours : 12;
   minutes = minutes < 10 ? '0' + minutes : minutes;
   return `${hours}:${minutes} ${ampm}`;
 }
 
-// RENDER APPLICATION UI
+// RENDER APPLICATION
 function renderApp() {
-  // Update state displays
   DOM.usernameDisplays.forEach(element => {
     element.textContent = AppState.username;
   });
@@ -634,13 +787,11 @@ function renderApp() {
   DOM.targetCaloriesText.textContent = AppState.dailyTarget.toLocaleString('en-US');
   DOM.insightsTargetVal.textContent = AppState.dailyTarget.toLocaleString('en-US');
   
-  // Set Profile form inputs value matching state
   DOM.inputUsername.value = AppState.username;
   DOM.inputDailyTarget.value = AppState.dailyTarget;
   DOM.profileNameText.textContent = AppState.username;
   DOM.layoutModeSelector.value = AppState.layoutMode;
 
-  // Toggle layout mode styling buttons / banners
   if (AppState.layoutMode === 'input') {
     DOM.scanBannerBtn.classList.add('hidden');
     DOM.inputBannerBtn.classList.remove('hidden');
@@ -655,14 +806,13 @@ function renderApp() {
     DOM.scanListIcon.classList.add('hidden');
   }
 
-  // Handle premium visual configurations
   if (AppState.isPremium) {
     DOM.headerPremiumDot.style.display = 'block';
     DOM.profilePremiumBadge.classList.remove('hidden');
     DOM.profileFreeBadge.classList.add('hidden');
     DOM.premiumPromoPanel.classList.add('hidden');
     DOM.premiumActivePanel.classList.remove('hidden');
-    DOM.freeLimitBadgeCard.style.display = 'none'; // hide limitations
+    DOM.freeLimitBadgeCard.style.display = 'none';
   } else {
     DOM.headerPremiumDot.style.display = 'none';
     DOM.profilePremiumBadge.classList.add('hidden');
@@ -672,21 +822,97 @@ function renderApp() {
     DOM.freeLimitBadgeCard.style.display = 'flex';
   }
 
-  // Free Data Check badge count
-  const checksLeft = 3 - AppState.freeScansUsed;
-  DOM.freeCheckCounter.textContent = `${AppState.freeScansUsed} OF 3 USED`;
+  DOM.freeCheckCounter.textContent = `${AppState.freeScansUsed}/3 used`;
 
-  // Render sub sections
   renderCalorieCounters();
   renderWaterSection();
   renderRecentActivity();
   renderHistorySection();
+  renderBudgetMeals();
+  renderGroceryList(); // Render newly added Grocery checklist
 }
 
-// Calculate and render all Calorie Ring metrics
+// Render healthy student budget cards
+function renderBudgetMeals() {
+  DOM.budgetMealsList.innerHTML = '';
+  
+  BUDGET_MEALS.forEach((meal, index) => {
+    const card = document.createElement('div');
+    card.classList.add('meal-card');
+    card.setAttribute('data-index', index);
+    
+    card.innerHTML = `
+      <div class="meal-card-img-wrapper">
+        <span class="meal-price-badge">${meal.price}</span>
+        <img src="${meal.img}" alt="${meal.name}" class="meal-card-img">
+      </div>
+      <h4>${meal.name}</h4>
+      <div class="meal-stats">
+        <span>${meal.calories} kcal</span>
+        <span>P: ${meal.protein}g</span>
+      </div>
+      <div class="meal-log-quick-add">+</div>
+    `;
+
+    card.addEventListener('click', () => {
+      logBudgetMeal(index);
+    });
+
+    DOM.budgetMealsList.appendChild(card);
+  });
+}
+
+// Render budget grocery shopping checklist items
+function renderGroceryList() {
+  DOM.groceryItemsList.innerHTML = '';
+  
+  let totalCost = 0.0;
+  let totalCalories = 0;
+
+  GROCERY_ITEMS.forEach(item => {
+    const row = document.createElement('div');
+    row.classList.add('grocery-item');
+    
+    const isChecked = AppState.selectedGroceryIds.includes(item.id);
+    if (isChecked) {
+      totalCost += item.price;
+      totalCalories += item.calories;
+    }
+
+    row.innerHTML = `
+      <div class="grocery-left">
+        <input type="checkbox" class="grocery-checkbox" data-id="${item.id}" ${isChecked ? 'checked' : ''}>
+        <div class="grocery-info">
+          <h4>${item.name}</h4>
+          <p>${item.detail} • ${item.calories} kcal</p>
+        </div>
+      </div>
+      <span class="grocery-price">$${item.price.toFixed(2)}</span>
+    `;
+
+    // Click checkbox callback to recalculate totals
+    row.querySelector('.grocery-checkbox').addEventListener('change', (e) => {
+      const itemId = e.target.getAttribute('data-id');
+      if (e.target.checked) {
+        if (!AppState.selectedGroceryIds.includes(itemId)) {
+          AppState.selectedGroceryIds.push(itemId);
+        }
+      } else {
+        AppState.selectedGroceryIds = AppState.selectedGroceryIds.filter(id => id !== itemId);
+      }
+      saveLocalStorage();
+      renderApp(); // Rerenders checklist and updates totals dynamically
+    });
+
+    DOM.groceryItemsList.appendChild(row);
+  });
+
+  // Render totals
+  DOM.shoppingTotalCost.textContent = `$${totalCost.toFixed(2)}`;
+  DOM.shoppingTotalCalories.textContent = `${totalCalories.toLocaleString('en-US')} kcal`;
+}
+
 function renderCalorieCounters() {
-  // Aggregate today's food calorie logs
-  // Filters items that are log entries for today only
   const todayStart = new Date();
   todayStart.setHours(0, 0, 0, 0);
   
@@ -696,7 +922,6 @@ function renderCalorieCounters() {
   let totalFats = 0;
   let totalFiber = 0;
 
-  // Filter logs registered within today's range
   AppState.logs.forEach(log => {
     if (log.timestamp >= todayStart.getTime()) {
       totalCal += log.calories;
@@ -707,11 +932,9 @@ function renderCalorieCounters() {
     }
   });
 
-  // Calculate remaining
   const remaining = AppState.dailyTarget - totalCal;
   DOM.remainingCaloriesText.textContent = remaining >= 0 ? remaining.toLocaleString('en-US') : `+${Math.abs(remaining).toLocaleString('en-US')}`;
   
-  // Set subheader to surplus if needed
   const descText = document.querySelector('.card-remaining-desc');
   if (remaining >= 0) {
     descText.innerHTML = `<span id="remaining-calories-text">${remaining.toLocaleString('en-US')}</span> kcal remaining`;
@@ -721,21 +944,16 @@ function renderCalorieCounters() {
     descText.style.color = 'hsl(0, 80%, 55%)';
   }
 
-  // Progress SVG bar calculations
   const totalLimit = AppState.dailyTarget;
   const progressRatio = totalLimit > 0 ? totalCal / totalLimit : 0;
   
-  // stroke-dasharray = 264 (Circumference)
   const baseCircumference = 264;
   let strokeOffset = baseCircumference - (progressRatio * baseCircumference);
   
-  // Clamp values
   if (strokeOffset < 0) strokeOffset = 0;
   if (strokeOffset > baseCircumference) strokeOffset = baseCircumference;
   DOM.homeProgressBar.style.strokeDashoffset = strokeOffset;
 
-  // Dynamic macros calculations
-  // Target macros (Simulate target diets: Protein 160g, Carbs 315g)
   const targetProtein = 160;
   const targetCarbs = 315;
 
@@ -753,16 +971,12 @@ function renderCalorieCounters() {
   DOM.macroFatsWeight.textContent = `${totalFats}g`;
   DOM.macroFiberWeight.textContent = `${totalFiber}g`;
 
-  // Render insights metrics on Screen 2
-  // Simulate active burn values dynamically + BMR constants
   const insightsBurnVal = 850;
   const insightsBmrVal = 1250;
   
   DOM.insightsActiveBurn.textContent = insightsBurnVal.toLocaleString('en-US');
   DOM.insightsBmr.textContent = insightsBmrVal.toLocaleString('en-US');
   
-  // Insights Screen average intake calculate
-  // Use today logs + prefilled history to determine a mock average intake
   const allLogsCombined = [...AppState.logs];
   let logTotalSum = 0;
   allLogsCombined.forEach(l => logTotalSum += l.calories);
@@ -771,56 +985,46 @@ function renderCalorieCounters() {
   const totalDaysObserved = 6;
   const averageIntake = Math.round(logTotalSum / totalDaysObserved);
   DOM.insightsAvgIntake.textContent = `${averageIntake.toLocaleString('en-US')} kcal`;
-  
-  // History trend average sync
   DOM.trendAvgCalories.textContent = averageIntake.toLocaleString('en-US');
 }
 
-// Render Water intake status
 function renderWaterSection() {
   DOM.waterIntakeText.textContent = AppState.waterIntake.toFixed(1);
-  
-  // Limit target limit scale is 3.0L
   const targetWater = 3.0;
   let ratio = AppState.waterIntake / targetWater;
   if (ratio > 1.0) ratio = 1.0;
-  
-  // Wave animation height percent
   DOM.waterWaveFill.style.height = (ratio * 100) + '%';
 }
 
-// Render Recent food logs list on Home screen
 function renderRecentActivity() {
   DOM.recentActivityList.innerHTML = '';
   
   if (AppState.logs.length === 0) {
     DOM.recentActivityList.innerHTML = `
       <div class="empty-state-list" style="text-align:center; padding: 24px; color: var(--text-sub); font-size:13px;">
-        No meals logged for today. Click Scan to add.
+        No student meals logged for today.
       </div>
     `;
     return;
   }
 
-  // Display logs
   AppState.logs.forEach(log => {
     const item = document.createElement('div');
     item.classList.add('activity-item');
     
-    // Choose thumbnail placeholder by food name keywords
-    let thumbUrl = 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&q=80&w=80&h=80'; // fallback healthy food
+    let thumbUrl = 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&q=80&w=80&h=80';
     if (log.name.toLowerCase().includes('salad')) {
       thumbUrl = 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&q=80&w=80&h=80';
     } else if (log.name.toLowerCase().includes('salmon') || log.name.toLowerCase().includes('fish')) {
       thumbUrl = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=80&h=80';
-    } else if (log.name.toLowerCase().includes('toast') || log.name.toLowerCase().includes('egg') || log.name.toLowerCase().includes('bread')) {
+    } else if (log.name.toLowerCase().includes('toast') || log.name.toLowerCase().includes('egg') || log.name.toLowerCase().includes('oatmeal')) {
       thumbUrl = 'https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&q=80&w=80&h=80';
     } else if (log.name.toLowerCase().includes('pizza')) {
       thumbUrl = 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=80&h=80';
-    } else if (log.name.toLowerCase().includes('beef') || log.name.toLowerCase().includes('steak') || log.name.toLowerCase().includes('bowl')) {
-      thumbUrl = 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=80&h=80';
-    } else if (log.name.toLowerCase().includes('sushi')) {
-      thumbUrl = 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&q=80&w=80&h=80';
+    } else if (log.name.toLowerCase().includes('beef') || log.name.toLowerCase().includes('rice') || log.name.toLowerCase().includes('beans')) {
+      thumbUrl = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=80&h=80';
+    } else if (log.name.toLowerCase().includes('tuna') || log.name.toLowerCase().includes('sushi')) {
+      thumbUrl = 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&q=80&w=80&h=80';
     }
 
     item.innerHTML = `
@@ -833,13 +1037,12 @@ function renderRecentActivity() {
       </div>
       <div class="activity-right">
         <span class="calorie-badge">${log.calories} <span class="kcal">kcal</span></span>
-        <button class="delete-activity-btn" data-id="${log.id}" title="Remove entry">
+        <button class="delete-activity-btn" data-id="${log.id}">
           ✕
         </button>
       </div>
     `;
 
-    // Hook delete click event
     item.querySelector('.delete-activity-btn').addEventListener('click', (e) => {
       e.stopPropagation();
       const logId = Number(e.currentTarget.getAttribute('data-id'));
@@ -850,12 +1053,10 @@ function renderRecentActivity() {
   });
 }
 
-// Render History calendars
 function renderHistorySection() {
   DOM.historyItemsOctober.innerHTML = '';
   DOM.historyItemsSeptember.innerHTML = '';
 
-  // Render October logs
   AppState.history.october.forEach(log => {
     const card = document.createElement('div');
     card.classList.add('history-card');
@@ -877,7 +1078,6 @@ function renderHistorySection() {
     DOM.historyItemsOctober.appendChild(card);
   });
 
-  // Render September logs
   AppState.history.september.forEach(log => {
     const card = document.createElement('div');
     card.classList.add('history-card');
@@ -900,5 +1100,4 @@ function renderHistorySection() {
   });
 }
 
-// Initialize Application once DOM fully loads
 window.addEventListener('DOMContentLoaded', init);
