@@ -2343,76 +2343,288 @@ body {
 }
 
 /* Grocery list styles */
-.grocery-items-container {
-  display: flex;
-  flex-direction: column;
-  max-height: 300px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-
-.grocery-items-container::-webkit-scrollbar {
-  width: 4px;
-}
-
-.grocery-items-container::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 4px;
-}
-
-.grocery-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.grocery-item:last-child {
-  border-bottom: none;
-}
-
-.grocery-left {
-  display: flex;
-  align-items: center;
+.grocery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-.grocery-checkbox {
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
+.grocery-card {
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
+  border-radius: 18px;
+  padding: 10px;
+  position: relative;
   cursor: pointer;
-  accent-color: var(--mint-green);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-spring);
 }
 
-.grocery-info h4 {
-  font-size: 13px;
+.grocery-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.grocery-card.selected {
+  border-color: var(--mint-green);
+  background-color: var(--mint-green-light);
+}
+
+.grocery-card-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 90px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--bg-subtle);
+}
+
+.grocery-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.grocery-price-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background-color: var(--soft-yellow);
+  color: var(--gold-dark);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(255, 215, 0, 0.25);
+  z-index: 2;
+}
+
+.grocery-card h4 {
+  font-size: 12px;
   font-weight: 700;
   color: var(--text-main);
+  margin-top: 8px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 32px;
 }
 
-.grocery-info p {
-  font-size: 11px;
+.grocery-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 600;
   color: var(--text-sub);
-  margin-top: 2px;
+  margin-top: 6px;
 }
 
-.grocery-price {
+.grocery-toggle-btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background-color: var(--bg-subtle);
+  color: var(--text-sub);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  border: 1px solid var(--border-color);
+  transition: var(--transition-smooth);
+}
+
+.grocery-card.selected .grocery-toggle-btn {
+  background-color: var(--mint-green);
+  color: var(--text-white);
+  border-color: var(--mint-green);
+}
+
+/* Grocery Detail Drawer Modal */
+.grocery-detail-sheet {
+  background-color: var(--bg-card);
+}
+
+.grocery-detail-content {
+  padding-bottom: 24px;
+}
+
+.grocery-detail-header-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.grocery-detail-img-wrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: var(--bg-subtle);
+  flex-shrink: 0;
+}
+
+.grocery-detail-large-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.grocery-detail-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.grocery-detail-price {
   font-family: var(--font-display);
   font-size: 12px;
   font-weight: 800;
   color: var(--gold-dark);
   background-color: var(--gold-light);
-  padding: 2px 8px;
-  border-radius: 6px;
+  padding: 3px 10px;
+  border-radius: 8px;
+  align-self: flex-start;
+}
+
+.grocery-detail-title-block h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.grocery-detail-title-block p {
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+/* Calorie Overview */
+.grocery-detail-cal-box {
+  background-color: var(--bg-subtle);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.detail-cal-number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 68px;
+  height: 68px;
+  background-color: var(--mint-green-light);
+  border-radius: 50%;
+  color: var(--dark-green);
+}
+
+.detail-cal-number .cal-val {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.detail-cal-number .cal-unit {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.detail-cal-analysis {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+/* Section Title */
+.detail-section-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+/* Macros Breakdown Track */
+.detail-macros-breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.macro-breakdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.macro-lbl-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.macro-name {
+  color: var(--text-sub);
+  font-weight: 500;
+}
+
+.macro-val-weight {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.macro-progress-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--border-color);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.macro-progress-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.macro-progress-bar.protein {
+  background-color: var(--mint-green);
+}
+
+.macro-progress-bar.carbs {
+  background-color: var(--gold);
+}
+
+.macro-progress-bar.fats {
+  background-color: hsl(20, 95%, 55%);
+}
+
+.macro-progress-bar.fiber {
+  background-color: hsl(200, 85%, 45%);
+}
+
+.grocery-detail-desc {
+  font-size: 12px;
+  color: var(--text-sub);
+  line-height: 1.5;
 }
 
 .shopping-summary-box {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1.5px dashed var(--border-color);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -2428,7 +2640,7 @@ body {
 
 .summary-row strong {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 800;
   color: var(--text-main);
 }

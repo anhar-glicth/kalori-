@@ -97,14 +97,102 @@ const BUDGET_MEALS = [
 
 // Database of Low-Budget, Low-Calorie Groceries
 const GROCERY_ITEMS = [
-  { id: 'gr-1', name: 'Telur Ayam (6 butir)', price: 1.20, calories: 420, detail: 'Sumber protein murah berkualitas' },
-  { id: 'gr-2', name: 'Tahu Putih Sutra (300g)', price: 0.80, calories: 225, detail: 'Sangat rendah kalori & tinggi protein nabati' },
-  { id: 'gr-3', name: 'Tempe Block (200g)', price: 0.95, calories: 380, detail: 'Padat nutrisi, berserat tinggi & murah' },
-  { id: 'gr-4', name: 'Rolled Oats (500g)', price: 1.50, calories: 1850, detail: 'Karbohidrat kompleks pengenyang lama' },
-  { id: 'gr-5', name: 'Bayam Segar (1 ikat)', price: 0.75, calories: 45, detail: 'Kaya zat besi & vitamin, super rendah kalori' },
-  { id: 'gr-6', name: 'Tuna Kaleng (in Water)', price: 1.85, calories: 180, detail: 'Protein murni, praktis tanpa lemak tambahan' },
-  { id: 'gr-7', name: 'Greek Yogurt Plain (500g)', price: 1.90, calories: 295, detail: 'Tinggi kalsium & protein, bagus untuk pencernaan' },
-  { id: 'gr-8', name: 'Dada Ayam Fillet (250g)', price: 1.95, calories: 275, detail: 'Sumber protein hewani paling populer untuk diet' }
+  {
+    id: 'gr-1',
+    name: 'Telur Ayam (6 butir)',
+    price: 15000,
+    calories: 420,
+    protein: 36,
+    carbs: 3,
+    fats: 30,
+    fiber: 0,
+    img: 'https://images.unsplash.com/photo-1516448620398-c5f44bf9f441?auto=format&fit=crop&q=80&w=150&h=100',
+    detail: 'Sumber protein hewani berkualitas tinggi, sangat terjangkau, dan padat mikronutrisi penting seperti kolin dan vitamin B12 untuk performa akademis mahasiswa.'
+  },
+  {
+    id: 'gr-2',
+    name: 'Tahu Putih Sutra (300g)',
+    price: 8000,
+    calories: 225,
+    protein: 24,
+    carbs: 6,
+    fats: 12,
+    fiber: 3,
+    img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=150&h=100',
+    detail: 'Sangat rendah kalori, kaya akan kalsium, dan tinggi protein nabati. Pilihan ideal untuk hidangan sup atau tumisan diet sehat murah.'
+  },
+  {
+    id: 'gr-3',
+    name: 'Tempe Block (200g)',
+    price: 7000,
+    calories: 380,
+    protein: 38,
+    carbs: 18,
+    fats: 18,
+    fiber: 10,
+    img: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&q=80&w=150&h=100',
+    detail: 'Superfood khas Indonesia yang kaya akan protein nabati, prebiotik alami untuk pencernaan sehat, dan serat pangan tinggi dengan harga bersahabat.'
+  },
+  {
+    id: 'gr-4',
+    name: 'Rolled Oats (500g)',
+    price: 22000,
+    calories: 1850,
+    protein: 65,
+    carbs: 330,
+    fats: 35,
+    fiber: 50,
+    img: 'https://images.unsplash.com/photo-1517881917430-e70dfb3610aa?auto=format&fit=crop&q=80&w=150&h=100',
+    detail: 'Karbohidrat kompleks bebas kolesterol dengan kandungan beta-glukan tinggi yang membantu menjaga energi tetap stabil dan kenyang lebih lama.'
+  },
+  {
+    id: 'gr-5',
+    name: 'Bayam Segar (1 ikat)',
+    price: 4000,
+    calories: 45,
+    protein: 5,
+    carbs: 7,
+    fats: 1,
+    fiber: 4,
+    img: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&q=80&w=150&h=100',
+    detail: 'Sayuran berdaun hijau yang kaya akan zat besi, vitamin A, dan asam folat. Memiliki kalori yang sangat rendah untuk membantu manajemen porsi makan.'
+  },
+  {
+    id: 'gr-6',
+    name: 'Tuna Kaleng (in Water)',
+    price: 25000,
+    calories: 180,
+    protein: 40,
+    carbs: 0,
+    fats: 2,
+    fiber: 0,
+    img: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&q=80&w=150&h=100',
+    detail: 'Sumber asam lemak omega-3 dan protein hewani yang sangat tinggi tanpa lemak jenuh tambahan. Bagus untuk kesehatan jantung dan otak mahasiswa.'
+  },
+  {
+    id: 'gr-7',
+    name: 'Greek Yogurt Plain (250g)',
+    price: 28000,
+    calories: 150,
+    protein: 25,
+    carbs: 9,
+    fats: 5,
+    fiber: 0,
+    img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&q=80&w=150&h=100',
+    detail: 'Yogurt bertekstur kental yang kaya akan probiotik untuk usus yang sehat, kalsium tinggi, dan kandungan protein dua kali lipat dibanding yogurt biasa.'
+  },
+  {
+    id: 'gr-8',
+    name: 'Dada Ayam Fillet (250g)',
+    price: 24000,
+    calories: 275,
+    protein: 55,
+    carbs: 0,
+    fats: 5,
+    fiber: 0,
+    img: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&q=80&w=150&h=100',
+    detail: 'Pilihan protein hewani rendah lemak terbaik untuk pembentukan otot, memulihkan stamina setelah berolahraga, dan menjaga rasa kenyang saat diet.'
+  }
 ];
 
 // Database of Simulated Food Items for Scanner
@@ -197,6 +285,25 @@ const DOM = {
   shoppingTotalCalories: document.getElementById('shopping-total-calories'),
   btnClearGrocery: document.getElementById('btn-clear-grocery'),
 
+  // Grocery Details Modal Elements
+  btnCloseGroceryDetail: document.getElementById('btn-close-grocery-detail'),
+  groceryDetailImg: document.getElementById('grocery-detail-img'),
+  groceryDetailPriceBadge: document.getElementById('grocery-detail-price-badge'),
+  groceryDetailName: document.getElementById('grocery-detail-name'),
+  groceryDetailSubtitle: document.getElementById('grocery-detail-subtitle'),
+  groceryDetailCalories: document.getElementById('grocery-detail-calories'),
+  groceryDetailAnalysisText: document.getElementById('grocery-detail-analysis-text'),
+  groceryDetailProtein: document.getElementById('grocery-detail-protein'),
+  groceryDetailProteinBar: document.getElementById('grocery-detail-protein-bar'),
+  groceryDetailCarbs: document.getElementById('grocery-detail-carbs'),
+  groceryDetailCarbsBar: document.getElementById('grocery-detail-carbs-bar'),
+  groceryDetailFats: document.getElementById('grocery-detail-fats'),
+  groceryDetailFatsBar: document.getElementById('grocery-detail-fats-bar'),
+  groceryDetailFiber: document.getElementById('grocery-detail-fiber'),
+  groceryDetailFiberBar: document.getElementById('grocery-detail-fiber-bar'),
+  groceryDetailDescText: document.getElementById('grocery-detail-desc-text'),
+  btnToggleGroceryBasket: document.getElementById('btn-toggle-grocery-basket'),
+
   // Insights Screen Elements
   insightsTargetVal: document.getElementById('insights-target-val'),
   insightsActiveBurn: document.getElementById('insights-active-burn'),
@@ -235,7 +342,8 @@ const DOM = {
     scanSimulator: document.getElementById('overlay-scan-simulator'),
     manualInput: document.getElementById('overlay-manual-input'),
     premiumCelebration: document.getElementById('overlay-premium-celebration'),
-    onboarding: document.getElementById('overlay-onboarding')
+    onboarding: document.getElementById('overlay-onboarding'),
+    groceryDetail: document.getElementById('overlay-grocery-detail')
   },
   
   // Close / action buttons in overlays
@@ -425,7 +533,20 @@ function setupEventListeners() {
     AppState.selectedGroceryIds = [];
     saveLocalStorage();
     renderApp();
-    showToast('Grocery basket reset');
+    showToast('Keranjang belanja dikosongkan');
+  });
+
+  DOM.btnCloseGroceryDetail.addEventListener('click', () => {
+    closeOverlay('groceryDetail');
+    activeGroceryDetailId = null;
+  });
+
+  DOM.btnToggleGroceryBasket.addEventListener('click', () => {
+    if (activeGroceryDetailId) {
+      toggleGrocerySelection(activeGroceryDetailId);
+      const isSelected = AppState.selectedGroceryIds.includes(activeGroceryDetailId);
+      updateBasketBtnState(isSelected);
+    }
   });
 
   DOM.btnTriggerReprofile.addEventListener('click', () => {
@@ -866,50 +987,127 @@ function renderBudgetMeals() {
 function renderGroceryList() {
   DOM.groceryItemsList.innerHTML = '';
   
-  let totalCost = 0.0;
+  let totalCost = 0;
   let totalCalories = 0;
 
   GROCERY_ITEMS.forEach(item => {
-    const row = document.createElement('div');
-    row.classList.add('grocery-item');
+    const card = document.createElement('div');
+    card.classList.add('grocery-card');
     
     const isChecked = AppState.selectedGroceryIds.includes(item.id);
     if (isChecked) {
+      card.classList.add('selected');
       totalCost += item.price;
       totalCalories += item.calories;
     }
 
-    row.innerHTML = `
-      <div class="grocery-left">
-        <input type="checkbox" class="grocery-checkbox" data-id="${item.id}" ${isChecked ? 'checked' : ''}>
-        <div class="grocery-info">
-          <h4>${item.name}</h4>
-          <p>${item.detail} • ${item.calories} kcal</p>
-        </div>
+    card.innerHTML = `
+      <div class="grocery-card-img-wrapper">
+        <span class="grocery-price-badge">Rp ${item.price.toLocaleString('id-ID')}</span>
+        <img src="${item.img}" alt="${item.name}" class="grocery-card-img">
       </div>
-      <span class="grocery-price">$${item.price.toFixed(2)}</span>
+      <h4>${item.name}</h4>
+      <div class="grocery-stats">
+        <span>${item.calories} kcal</span>
+        <span>P: ${item.protein}g</span>
+      </div>
+      <div class="grocery-toggle-btn">${isChecked ? '✓' : '+'}</div>
     `;
 
-    // Click checkbox callback to recalculate totals
-    row.querySelector('.grocery-checkbox').addEventListener('change', (e) => {
-      const itemId = e.target.getAttribute('data-id');
-      if (e.target.checked) {
-        if (!AppState.selectedGroceryIds.includes(itemId)) {
-          AppState.selectedGroceryIds.push(itemId);
-        }
-      } else {
-        AppState.selectedGroceryIds = AppState.selectedGroceryIds.filter(id => id !== itemId);
-      }
-      saveLocalStorage();
-      renderApp(); // Rerenders checklist and updates totals dynamically
+    // Click on the toggle button to add/remove from basket
+    card.querySelector('.grocery-toggle-btn').addEventListener('click', (e) => {
+      e.stopPropagation(); // Stop click event from opening detail modal
+      toggleGrocerySelection(item.id);
     });
 
-    DOM.groceryItemsList.appendChild(row);
+    // Click on card body to open analysis modal
+    card.addEventListener('click', () => {
+      openGroceryDetail(item.id);
+    });
+
+    DOM.groceryItemsList.appendChild(card);
   });
 
-  // Render totals
-  DOM.shoppingTotalCost.textContent = `$${totalCost.toFixed(2)}`;
-  DOM.shoppingTotalCalories.textContent = `${totalCalories.toLocaleString('en-US')} kcal`;
+  // Render totals in Rupiah
+  DOM.shoppingTotalCost.textContent = `Rp ${totalCost.toLocaleString('id-ID')}`;
+  DOM.shoppingTotalCalories.textContent = `${totalCalories.toLocaleString('id-ID')} kcal`;
+}
+
+let activeGroceryDetailId = null;
+
+function toggleGrocerySelection(itemId) {
+  if (AppState.selectedGroceryIds.includes(itemId)) {
+    AppState.selectedGroceryIds = AppState.selectedGroceryIds.filter(id => id !== itemId);
+    showToast('Dihapus dari keranjang');
+  } else {
+    AppState.selectedGroceryIds.push(itemId);
+    showToast('Ditambahkan ke keranjang');
+  }
+  saveLocalStorage();
+  renderApp();
+}
+
+function openGroceryDetail(itemId) {
+  const item = GROCERY_ITEMS.find(x => x.id === itemId);
+  if (!item) return;
+
+  activeGroceryDetailId = itemId;
+
+  // Populate basic info
+  DOM.groceryDetailImg.src = item.img;
+  DOM.groceryDetailPriceBadge.textContent = `Rp ${item.price.toLocaleString('id-ID')}`;
+  DOM.groceryDetailName.textContent = item.name;
+  
+  // Set subtitle e.g., "Kandungan Nutrisi per porsi"
+  DOM.groceryDetailSubtitle.textContent = `Porsi: ${item.name.includes('butir') ? '6 Butir' : item.name.includes('300g') ? '300g' : item.name.includes('200g') ? '200g' : item.name.includes('500g') ? '500g' : item.name.includes('1 ikat') ? '1 Ikat' : '1 Porsi'}`;
+
+  DOM.groceryDetailCalories.textContent = item.calories;
+
+  // Calorie target percentage analysis
+  const pct = Math.round((item.calories / AppState.dailyTarget) * 100);
+  DOM.groceryDetailAnalysisText.textContent = `Bahan makanan ini menyumbang sekitar ${pct}% dari target kalori harian Anda (${AppState.dailyTarget.toLocaleString('id-ID')} kcal).`;
+
+  // Populate macro weights
+  DOM.groceryDetailProtein.textContent = `${item.protein}g`;
+  DOM.groceryDetailCarbs.textContent = `${item.carbs}g`;
+  DOM.groceryDetailFats.textContent = `${item.fats}g`;
+  DOM.groceryDetailFiber.textContent = `${item.fiber}g`;
+
+  // Set macro progress bar widths
+  // Standard daily limits for visual bars percentage
+  const maxProtein = 100;
+  const maxCarbs = 200;
+  const maxFats = 50;
+  const maxFiber = 25;
+
+  const protPct = Math.min(100, Math.round((item.protein / maxProtein) * 100));
+  const carbsPct = Math.min(100, Math.round((item.carbs / maxCarbs) * 100));
+  const fatsPct = Math.min(100, Math.round((item.fats / maxFats) * 100));
+  const fiberPct = Math.min(100, Math.round((item.fiber / maxFiber) * 100));
+
+  DOM.groceryDetailProteinBar.style.width = `${protPct}%`;
+  DOM.groceryDetailCarbsBar.style.width = `${carbsPct}%`;
+  DOM.groceryDetailFatsBar.style.width = `${fatsPct}%`;
+  DOM.groceryDetailFiberBar.style.width = `${fiberPct}%`;
+
+  // Description and Analysis text
+  DOM.groceryDetailDescText.textContent = item.detail;
+
+  // Toggle basket button state
+  const isSelected = AppState.selectedGroceryIds.includes(itemId);
+  updateBasketBtnState(isSelected);
+
+  openOverlay('groceryDetail');
+}
+
+function updateBasketBtnState(isSelected) {
+  if (isSelected) {
+    DOM.btnToggleGroceryBasket.textContent = 'Hapus dari Keranjang';
+    DOM.btnToggleGroceryBasket.style.background = 'var(--text-sub)';
+  } else {
+    DOM.btnToggleGroceryBasket.textContent = 'Tambah ke Keranjang';
+    DOM.btnToggleGroceryBasket.style.background = 'linear-gradient(135deg, var(--mint-green) 0%, var(--soft-yellow) 100%)';
+  }
 }
 
 function renderCalorieCounters() {

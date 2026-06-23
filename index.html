@@ -419,41 +419,37 @@
           <section id="screen-shopping" class="screen">
             <div class="welcome-message">
               <h2>Belanja Hemat</h2>
-              <p>Low budget & low calorie grocery list</p>
+              <p>Daftar belanja bahan makanan mahasiswa murah & rendah kalori</p>
             </div>
 
-            <!-- Shopping List Card -->
-            <div class="card shopping-list-card">
-              <div class="shopping-list-header">
-                <h3 class="settings-title" style="margin-bottom: 4px;">Student Grocery Checklist</h3>
-                <p style="font-size: 11px; color: var(--text-sub); margin-bottom: 14px;">Select items to build your budget grocery basket.</p>
-              </div>
+            <!-- Grocery Checklist Grid (2 Columns of cards) -->
+            <div class="grocery-grid" id="grocery-items-list">
+              <!-- Loaded dynamically from app.js -->
+            </div>
 
-              <div class="grocery-items-container" id="grocery-items-list">
-                <!-- Loaded dynamically from app.js -->
-              </div>
-
-              <div class="shopping-summary-box">
+            <!-- Shopping Summary Box Card -->
+            <div class="card shopping-summary-card" style="margin-top: 20px;">
+              <div class="shopping-summary-box" style="margin-top: 0; padding-top: 0; border-top: none;">
                 <div class="summary-row">
-                  <span>Estimated Cost:</span>
-                  <strong id="shopping-total-cost">$0.00</strong>
+                  <span>Estimasi Biaya:</span>
+                  <strong id="shopping-total-cost">Rp 0</strong>
                 </div>
-                <div class="summary-row">
-                  <span>Total Calories:</span>
+                <div class="summary-row" style="margin-top: 6px;">
+                  <span>Total Kalori:</span>
                   <strong id="shopping-total-calories">0 kcal</strong>
                 </div>
-                <button class="save-settings-btn" id="btn-clear-grocery" style="margin-top: 10px; background-color: var(--text-sub);">Reset Basket</button>
+                <button class="save-settings-btn" id="btn-clear-grocery" style="margin-top: 14px; background-color: var(--text-sub); width: 100%;">Reset Keranjang</button>
               </div>
             </div>
 
             <!-- Budget Tip Card -->
-            <div class="card insight-card" style="background-color: var(--mint-green-light); border-color: rgba(0,200,100,0.15); margin-bottom: 0;">
+            <div class="card insight-card" style="background-color: var(--mint-green-light); border-color: rgba(0,200,100,0.15); margin-top: 16px; margin-bottom: 0;">
               <div class="insight-icon-box" style="background-color: var(--mint-green); color: var(--dark-green); display: flex; align-items: center; justify-content: center; font-size: 16px;">
                 💡
               </div>
               <div class="insight-content">
-                <span class="insight-tag" style="color: var(--dark-green); font-weight: 800;">SHOPPING TIP</span>
-                <p style="color: var(--dark-green); margin-top: 4px; font-size: 12px; line-height: 1.4;">Buying bulk oats, dry black beans, and local tofu provides the highest protein-to-cost ratio for students.</p>
+                <span class="insight-tag" style="color: var(--dark-green); font-weight: 800;">TIPS BELANJA</span>
+                <p style="color: var(--dark-green); margin-top: 4px; font-size: 12px; line-height: 1.4;">Membeli tahu putih, tempe block, dan bayam lokal memberikan rasio protein-ke-biaya tertinggi untuk mahasiswa Indonesia.</p>
               </div>
             </div>
           </section>
@@ -748,6 +744,98 @@
                 Calculate Daily Calories
               </button>
             </form>
+          </div>
+        </div>
+
+        <!-- OVERLAY 6: GROCERY DETAIL NUTRIENT ANALYSIS -->
+        <div class="modal-overlay" id="overlay-grocery-detail">
+          <div class="bottom-sheet grocery-detail-sheet">
+            <!-- Drag handle -->
+            <div class="sheet-drag-handle"></div>
+            
+            <!-- Close button -->
+            <button class="sheet-close-btn" id="btn-close-grocery-detail" aria-label="Close">✕</button>
+
+            <div class="grocery-detail-content">
+              <div class="grocery-detail-header-row">
+                <div class="grocery-detail-img-wrapper">
+                  <img src="" id="grocery-detail-img" alt="Grocery Image" class="grocery-detail-large-img">
+                </div>
+                <div class="grocery-detail-title-block">
+                  <span class="grocery-detail-price" id="grocery-detail-price-badge">Rp 0</span>
+                  <h3 id="grocery-detail-name">Nama Bahan</h3>
+                  <p id="grocery-detail-subtitle">Kalori & Porsi</p>
+                </div>
+              </div>
+
+              <!-- Calorie Overview Box -->
+              <div class="grocery-detail-cal-box">
+                <div class="detail-cal-number">
+                  <span class="cal-val" id="grocery-detail-calories">0</span>
+                  <span class="cal-unit">kcal</span>
+                </div>
+                <div class="detail-cal-analysis" id="grocery-detail-analysis-text">
+                  Bahan ini menyumbang 0% dari target kalori harian Anda.
+                </div>
+              </div>
+
+              <!-- Macros Breakdown Title -->
+              <h4 class="detail-section-title">Kandungan Makronutrisi</h4>
+
+              <!-- Macro breakdown progress tracks -->
+              <div class="detail-macros-breakdown-list">
+                <div class="macro-breakdown-item">
+                  <div class="macro-lbl-row">
+                    <span class="macro-name">Protein</span>
+                    <strong class="macro-val-weight" id="grocery-detail-protein">0g</strong>
+                  </div>
+                  <div class="macro-progress-track">
+                    <div class="macro-progress-bar protein" id="grocery-detail-protein-bar" style="width: 0%"></div>
+                  </div>
+                </div>
+
+                <div class="macro-breakdown-item">
+                  <div class="macro-lbl-row">
+                    <span class="macro-name">Karbohidrat</span>
+                    <strong class="macro-val-weight" id="grocery-detail-carbs">0g</strong>
+                  </div>
+                  <div class="macro-progress-track">
+                    <div class="macro-progress-bar carbs" id="grocery-detail-carbs-bar" style="width: 0%"></div>
+                  </div>
+                </div>
+
+                <div class="macro-breakdown-item">
+                  <div class="macro-lbl-row">
+                    <span class="macro-name">Lemak</span>
+                    <strong class="macro-val-weight" id="grocery-detail-fats">0g</strong>
+                  </div>
+                  <div class="macro-progress-track">
+                    <div class="macro-progress-bar fats" id="grocery-detail-fats-bar" style="width: 0%"></div>
+                  </div>
+                </div>
+
+                <div class="macro-breakdown-item">
+                  <div class="macro-lbl-row">
+                    <span class="macro-name">Serat</span>
+                    <strong class="macro-val-weight" id="grocery-detail-fiber">0g</strong>
+                  </div>
+                  <div class="macro-progress-track">
+                    <div class="macro-progress-bar fiber" id="grocery-detail-fiber-bar" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Description / Student Diet Hack -->
+              <h4 class="detail-section-title" style="margin-top: 18px;">Deskripsi & Analisis Diet</h4>
+              <p class="grocery-detail-desc" id="grocery-detail-desc-text">
+                Detail analisis...
+              </p>
+
+              <!-- Add to Basket / Remove from Basket Action Button inside Detail popup -->
+              <button class="unlock-premium-btn" id="btn-toggle-grocery-basket" style="margin-top: 20px; width: 100%;">
+                Tambah ke Keranjang
+              </button>
+            </div>
           </div>
         </div>
 
