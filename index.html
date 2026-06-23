@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CaloScan AI - Clickable Calorie Tracking & AI Nutrient breakdown app mock.">
+  <title>CaloScan AI - Calorie Tracker</title>
+  <!-- Google Fonts: Inter and Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Phone Bezel Shell -->
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      
+      <!-- Phone Screen Inside Viewport -->
+      <div class="phone-screen">
+        
+        <!-- Status Bar -->
+        <div class="phone-status-bar">
+          <span class="status-bar-time" id="status-time">09:41</span>
+          <div class="status-bar-icons">
+            <svg class="status-icon" viewBox="0 0 24 24" width="14" height="14">
+              <path fill="currentColor" d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.07 19.58 10.48 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+            </svg>
+            <svg class="status-icon" viewBox="0 0 24 24" width="14" height="14">
+              <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+            <svg class="status-icon" viewBox="0 0 24 24" width="14" height="14">
+              <path fill="currentColor" d="M17 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm-1 11H4V8h12v8zm5-7a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1v-6z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Global App Header -->
+        <header class="app-header">
+          <div class="user-profile-btn" id="header-avatar-btn">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150" alt="User Profile" class="avatar-img" id="header-avatar">
+            <span class="premium-badge-dot" id="header-premium-dot"></span>
+          </div>
+          <h1 class="brand-title">CaloScan AI</h1>
+          <button class="settings-btn" id="header-settings-btn" aria-label="Settings">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+        </header>
+
+        <!-- Dynamic Main Scrollable Screens Area -->
+        <main class="app-main-content">
+
+          <!-- SCREEN 1: HOME (DASHBOARD) -->
+          <section id="screen-home" class="screen active">
+            <div class="welcome-message">
+              <h2>Hello, <span class="username-display">User</span></h2>
+              <p>Your metabolism is peaking. Keep it up!</p>
+            </div>
+
+            <!-- Target Rings & Daily Target Card -->
+            <div class="card daily-target-card">
+              <div class="target-card-header">
+                <span class="card-subtitle">DAILY TARGET</span>
+                <span class="card-title-value"><span id="target-calories-text">1,840</span> <span class="unit">kcal</span></span>
+                <span class="card-remaining-desc"><span id="remaining-calories-text">640</span> kcal remaining</span>
+              </div>
+              <div class="progress-ring-container">
+                <svg class="progress-ring" width="100" height="100">
+                  <circle class="progress-ring-bg" stroke="rgba(0, 200, 0, 0.1)" stroke-width="8" fill="transparent" r="42" cx="50" cy="50"/>
+                  <circle class="progress-ring-bar" id="home-progress-bar" stroke="var(--neon-green)" stroke-width="8" fill="transparent" r="42" cx="50" cy="50"/>
+                </svg>
+                <div class="progress-ring-center">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" class="fire-icon">
+                    <path d="M12.05 2.22a.49.49 0 0 0-.77.34c-.45 2.29-1.9 3.86-3.25 5.24C6.73 9.17 5 10.93 5 13.5c0 3.87 3.13 7 7 7s7-3.13 7-7c0-2.45-1.33-4.78-3-6a10.9 10.9 0 0 0-3.95-2.28zm-3.03 9.4c.54-.78 1.4-1.53 1.83-2.61.27.76.92 1.34 1.5 1.77.7.53 1.15 1.3 1.15 2.22 0 1.66-1.34 3-3 3s-3-1.34-3-3c0-.98.5-1.84 1.52-2.38z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Macro Stats Row -->
+            <div class="macro-row">
+              <div class="macro-box">
+                <span class="macro-label">PROTEIN</span>
+                <div class="macro-percentage-circle" data-percentage="72" style="--p: 72">
+                  <span class="percent-text" id="macro-protein-pct">72%</span>
+                </div>
+                <span class="macro-weight" id="macro-protein-weight">115g</span>
+              </div>
+              <div class="macro-box">
+                <span class="macro-label">CARBS</span>
+                <div class="macro-percentage-circle" data-percentage="45" style="--p: 45">
+                  <span class="percent-text" id="macro-carbs-pct">45%</span>
+                </div>
+                <span class="macro-weight" id="macro-carbs-weight">142g</span>
+              </div>
+            </div>
+
+            <!-- Lower Level Macros & Water -->
+            <div class="card detail-macros-card">
+              <div class="detail-macro-item">
+                <span class="detail-label">FATS</span>
+                <span class="detail-val" id="macro-fats-weight">48g</span>
+              </div>
+              <div class="detail-macro-divider"></div>
+              <div class="detail-macro-item">
+                <span class="detail-label">FIBER</span>
+                <span class="detail-val" id="macro-fiber-weight">22g</span>
+              </div>
+              <div class="detail-macro-divider"></div>
+              <div class="detail-macro-item water-tracker-btn" id="water-tracker-card" title="Add 250ml Water">
+                <div class="water-progress-wave" id="water-wave-fill"></div>
+                <span class="detail-label">WATER</span>
+                <span class="detail-val"><span id="water-intake-text">1.8</span>L</span>
+                <span class="water-add-plus">+</span>
+              </div>
+            </div>
+
+            <!-- Scan Banner Button -->
+            <div class="scan-banner-btn" id="scan-banner-btn">
+              <div class="scan-banner-info">
+                <h3>Scan Your Meal</h3>
+                <p>Instant AI nutrient breakdown</p>
+              </div>
+              <div class="scan-banner-icon-bg">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                  <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12zM12 5h2v10h-2V5zm-2 2h2v6h-2V7zm6-2h2v10h-2V5z"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Alternative Input Food Card (Changes based on selection) -->
+            <div class="scan-banner-btn input-banner-btn hidden" id="input-banner-btn">
+              <div class="scan-banner-info">
+                <h3>Input Food Data</h3>
+                <p>Instant AI nutrient analysis</p>
+              </div>
+              <div class="scan-banner-icon-bg input-icon-bg">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                  <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                  <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                  <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="activity-section">
+              <div class="section-header">
+                <h3>Recent Activity</h3>
+                <button class="view-all-btn" id="btn-view-all">VIEW ALL &rsaquo;</button>
+              </div>
+
+              <div class="activity-list" id="home-recent-activity-list">
+                <!-- Template Activity Item (Mock data or loaded states) -->
+                <!-- Filled dynamically by JavaScript -->
+              </div>
+            </div>
+
+            <!-- Metabolic Insight Card -->
+            <div class="card insight-card">
+              <div class="insight-icon-box">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3z"></path>
+                  <path d="M9 9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3 3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3z"></path>
+                  <path d="M3 15a3 3 0 0 0 3 3h3"></path>
+                </svg>
+              </div>
+              <div class="insight-content">
+                <span class="insight-tag">METABOLIC INSIGHT</span>
+                <p>Your protein intake is 15% higher this week, correlating with improved muscle recovery data.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- SCREEN 2: CALORIE INSIGHTS -->
+          <section id="screen-insights" class="screen">
+            <div class="welcome-message">
+              <h2>Calorie Insights</h2>
+              <p>Based on your recent activity and logs</p>
+            </div>
+
+            <!-- Circular Target Progress Indicator -->
+            <div class="insights-target-circle-container">
+              <div class="target-glow-ring">
+                <div class="target-inner-ring">
+                  <span class="insights-kcal-value" id="insights-target-val">2,100</span>
+                  <span class="insights-kcal-sub">KCAL TARGET</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Twin Cards (Active Burn & BMR) -->
+            <div class="twin-cards-row">
+              <div class="card twin-card">
+                <div class="twin-header">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" class="green-icon">
+                    <path d="m6.5 6.5 11 11"></path>
+                    <path d="m21 21-1-1"></path>
+                    <path d="m3 3 1 1"></path>
+                    <path d="m18.5 5.5 3 3"></path>
+                    <path d="m2.5 15.5 6 6"></path>
+                  </svg>
+                  <span>ACTIVE BURN</span>
+                </div>
+                <div class="twin-value">
+                  <span class="burn-val" id="insights-active-burn">850</span>
+                  <span class="twin-unit">kcal</span>
+                </div>
+              </div>
+              
+              <div class="card twin-card">
+                <div class="twin-header">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" class="gold-icon">
+                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                    <path d="M9 17v-5"></path>
+                    <path d="M12 17V9"></path>
+                    <path d="M15 17v-3"></path>
+                  </svg>
+                  <span>BMR</span>
+                </div>
+                <div class="twin-value">
+                  <span class="bmr-val" id="insights-bmr">1,250</span>
+                  <span class="twin-unit">kcal</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Average Intake Card with Mini Chart -->
+            <div class="card average-intake-card">
+              <div class="avg-left">
+                <span class="avg-label">AVERAGE INTAKE</span>
+                <span class="avg-value" id="insights-avg-intake">1,940 kcal</span>
+              </div>
+              <div class="mini-chart-container">
+                <div class="mini-bar" style="height: 60%"></div>
+                <div class="mini-bar" style="height: 80%"></div>
+                <div class="mini-bar" style="height: 100%"></div>
+                <div class="mini-bar" style="height: 90%"></div>
+                <div class="mini-bar" style="height: 70%"></div>
+                <div class="mini-bar" style="height: 85%"></div>
+                <div class="mini-bar" style="height: 75%"></div>
+              </div>
+            </div>
+
+            <!-- Free Check Status Limit Badge -->
+            <div class="free-limit-badge" id="free-limit-badge-card">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="badge-lock-icon">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>FREE DATA CHECKS: <strong id="free-check-counter">2 OF 3 USED</strong></span>
+            </div>
+
+            <!-- Check Calorie Data Trigger Button -->
+            <button class="main-action-btn check-calorie-btn" id="btn-check-calorie-data">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+              </svg>
+              Check Calorie Data
+            </button>
+          </section>
+
+          <!-- SCREEN 3: HISTORY -->
+          <section id="screen-history" class="screen">
+            <div class="welcome-message-with-avatar">
+              <div class="welcome-left">
+                <h2>History</h2>
+              </div>
+              <div class="settings-gear-container">
+                <!-- Mini Settings Gear for top header visual match -->
+              </div>
+            </div>
+
+            <!-- Historical Log Groups -->
+            <div class="history-groups-container">
+              
+              <!-- Month Group: October 2023 -->
+              <div class="history-group">
+                <h3 class="group-title">October 2023</h3>
+                <div class="history-items-list" id="history-items-october">
+                  <!-- Filled dynamically or hardcoded fallback matching designs -->
+                </div>
+              </div>
+
+              <!-- Month Group: September 2023 -->
+              <div class="history-group">
+                <h3 class="group-title">September 2023</h3>
+                <div class="history-items-list" id="history-items-september">
+                  <!-- Filled dynamically -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Metabolic Trend section -->
+            <div class="metabolic-trend-section">
+              <h3 class="section-title">Metabolic Trend</h3>
+              
+              <div class="trend-grid">
+                <div class="card trend-card">
+                  <span class="trend-label">AVG CALORIES</span>
+                  <div class="trend-value-row">
+                    <span class="trend-number" id="trend-avg-calories">2,525</span>
+                    <span class="trend-unit">kcal</span>
+                  </div>
+                </div>
+
+                <div class="card trend-card">
+                  <span class="trend-label">CONSISTENCY</span>
+                  <div class="trend-value-row">
+                    <span class="trend-number" id="trend-consistency">85%</span>
+                  </div>
+                  <div class="trend-progress-track">
+                    <div class="trend-progress-bar" style="width: 85%" id="trend-consistency-fill"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SCREEN 4: PROFILE -->
+          <section id="screen-profile" class="screen">
+            <div class="welcome-message">
+              <h2>User Profile</h2>
+              <p>Configure targets and membership</p>
+            </div>
+
+            <!-- Profile Info Card -->
+            <div class="card profile-info-card">
+              <div class="profile-avatar-wrapper">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150" alt="User Profile" class="profile-large-avatar" id="profile-avatar-display">
+                <button class="avatar-edit-badge" id="btn-edit-avatar" aria-label="Change photo">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                  </svg>
+                </button>
+              </div>
+              <h3 class="profile-name" id="profile-name-text">Jessica Doe</h3>
+              <p class="profile-email">jessica.doe@example.com</p>
+              <div class="premium-status-pill unlocked hidden" id="profile-premium-status-badge">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <path d="M12 2L1 21h22L12 2zm0 4l7.53 13H4.47L12 6zm-1 6v4h2v-4h-2zm0-3v2h2V9h-2z"/>
+                </svg>
+                Premium unlocked
+              </div>
+              <div class="premium-status-pill locked" id="profile-free-status-badge">
+                Free Account
+              </div>
+            </div>
+
+            <!-- Profile Settings Panel -->
+            <div class="card profile-settings-card">
+              <h3 class="settings-title">Configure Targets</h3>
+              
+              <div class="setting-form-group">
+                <label for="input-daily-target">Daily Target Calorie (kcal)</label>
+                <input type="number" id="input-daily-target" value="1840" min="100" max="10000" step="50">
+              </div>
+
+              <div class="setting-form-group">
+                <label for="input-username">Display Name</label>
+                <input type="text" id="input-username" value="Jessica Doe">
+              </div>
+
+              <div class="setting-form-group">
+                <label for="layout-mode-selector">Layout Mode Button</label>
+                <select id="layout-mode-selector">
+                  <option value="scan">Default ("Scan Your Meal" & Barcode)</option>
+                  <option value="input">Alternative ("Input Food Data" & List)</option>
+                </select>
+              </div>
+
+              <button class="save-settings-btn" id="btn-save-profile">Save Targets</button>
+            </div>
+
+            <!-- Premium Simulation Card -->
+            <div class="card premium-promo-card" id="premium-promo-panel">
+              <div class="promo-medal-icon">
+                <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
+                  <circle cx="12" cy="12" r="10" fill="rgba(255, 215, 0, 0.2)"></circle>
+                  <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm-1.5-6.5l1.5-1.5 1.5 1.5M12 15v-4.5" stroke="gold" stroke-width="2" stroke-linecap="round" fill="none"></path>
+                </svg>
+              </div>
+              <div class="promo-details">
+                <h3>Go Premium</h3>
+                <p>Unlock unlimited scans, AI deep body analysis & metabolic health trends.</p>
+                <button class="promo-action-btn" id="btn-promo-go-premium">Unlock Unlimited Access</button>
+              </div>
+            </div>
+            
+            <div class="card premium-promo-card hidden" id="premium-active-panel">
+              <div class="promo-medal-icon">
+                <span class="active-badge-checkmark">✓</span>
+              </div>
+              <div class="promo-details">
+                <h3>Premium Active</h3>
+                <p>Enjoy unlimited scans and daily metabolic trend analysis reports.</p>
+                <button class="promo-action-btn reset-btn" id="btn-reset-app">Reset Scan Data / Demo</button>
+              </div>
+            </div>
+          </section>
+
+        </main>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="app-nav-bar">
+          <button class="nav-tab active" data-screen="home" id="tab-home">
+            <div class="tab-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" class="tab-icon">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+            </div>
+            <span class="tab-label">Home</span>
+          </button>
+
+          <button class="nav-tab" data-screen="scan" id="tab-scan">
+            <div class="tab-icon-box">
+              <!-- Scan Barcode Icon -->
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon" id="nav-scan-barcode-icon">
+                <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"></path>
+                <line x1="7" y1="12" x2="17" y2="12"></line>
+              </svg>
+              <!-- Input Checklist Icon (Hidden by default, shown if toggle selected) -->
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon hidden" id="nav-scan-list-icon">
+                <line x1="9" y1="6" x2="20" y2="6"></line>
+                <line x1="9" y1="12" x2="20" y2="12"></line>
+                <line x1="9" y1="18" x2="20" y2="18"></line>
+                <rect x="3" y="5" width="2" height="2" rx="0.5"></rect>
+                <rect x="3" y="11" width="2" height="2" rx="0.5"></rect>
+                <rect x="3" y="17" width="2" height="2" rx="0.5"></rect>
+              </svg>
+            </div>
+            <span class="tab-label" id="tab-scan-label">Scan</span>
+          </button>
+
+          <button class="nav-tab" data-screen="history" id="tab-history">
+            <div class="tab-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <span class="tab-label">History</span>
+          </button>
+
+          <button class="nav-tab" data-screen="profile" id="tab-profile">
+            <div class="tab-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <span class="tab-label">Profile</span>
+          </button>
+        </nav>
+
+        <!-- Phone Home Indicator Bar at very bottom -->
+        <div class="phone-home-indicator"></div>
+
+        <!-- OVERLAY 1: LIMIT REACHED MODAL (BOTTOM DRAWER SHEET) -->
+        <div class="modal-overlay" id="overlay-limit-reached">
+          <div class="bottom-sheet">
+            <!-- Drag handle -->
+            <div class="sheet-drag-handle"></div>
+            
+            <!-- Close button -->
+            <button class="sheet-close-btn" id="btn-close-limit-sheet" aria-label="Close">✕</button>
+
+            <div class="limit-sheet-content">
+              <div class="sheet-medal-icon">
+                <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor" class="gold-medal">
+                  <circle cx="12" cy="12" r="10" fill="rgba(255, 215, 0, 0.2)"></circle>
+                  <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" fill="gold"></path>
+                  <path d="M12 2l3 6 7.5.5-5.5 5 1.5 7.5-6.5-4-6.5 4 1.5-7.5-5.5-5L9 8z" fill="gold"></path>
+                </svg>
+              </div>
+
+              <h3 class="limit-title">Limit Reached</h3>
+              <p class="limit-desc">You've used your 3 free scans for today. Go Premium for unlimited checks and deep AI body insights.</p>
+
+              <div class="benefit-item">
+                <span class="benefit-icon">∞</span>
+                <span class="benefit-text">Unlimited AI Scans</span>
+              </div>
+
+              <div class="benefit-item">
+                <span class="benefit-icon">📈</span>
+                <span class="benefit-text">Metabolic Health Trends</span>
+              </div>
+
+              <button class="unlock-premium-btn" id="btn-unlock-unlimited">Unlock Unlimited Access</button>
+              <span class="no-commitment-text">NO COMMITMENT. CANCEL ANYTIME.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- OVERLAY 2: CAMERA/AI SCAN SIMULATOR -->
+        <div class="modal-overlay" id="overlay-scan-simulator">
+          <div class="scanner-screen">
+            <!-- Camera Finder Grid -->
+            <div class="scanner-camera-feed">
+              <!-- Live scanner guide frame -->
+              <div class="scanner-guide-box">
+                <span class="corner top-left"></span>
+                <span class="corner top-right"></span>
+                <span class="corner bottom-left"></span>
+                <span class="corner bottom-right"></span>
+                
+                <!-- Moving scanning laser -->
+                <div class="scanning-laser-line"></div>
+              </div>
+
+              <!-- Scanning Status Message -->
+              <div class="scanner-status" id="scanner-status-text">Align meal in frame...</div>
+
+              <!-- Back Button -->
+              <button class="scanner-back-btn" id="btn-cancel-scan">✕</button>
+
+              <!-- Simulated Meal Capture Display (Reveals after a capture starts) -->
+              <div class="captured-meal-preview hidden" id="captured-meal-box">
+                <img src="" id="captured-meal-img" alt="Captured food sample">
+              </div>
+
+              <!-- Bottom Sheet Result Panel (Slides up when detection resolves) -->
+              <div class="scanner-result-sheet" id="scanner-result-sheet">
+                <div class="result-drag-indicator"></div>
+                <h4 class="result-headline">AI Recognition Found</h4>
+                
+                <div class="recognized-food-card">
+                  <div class="food-avatar-box">
+                    <img src="" id="recognized-food-img" alt="Detected dish image">
+                  </div>
+                  <div class="recognized-food-info">
+                    <h3 id="recognized-food-name">Caesar Salad</h3>
+                    <p id="recognized-food-calories">340 kcal</p>
+                  </div>
+                </div>
+
+                <div class="recognized-macros-grid">
+                  <div class="rec-macro">
+                    <span class="rec-macro-lbl">Protein</span>
+                    <span class="rec-macro-val" id="recognized-protein">12g</span>
+                  </div>
+                  <div class="rec-macro">
+                    <span class="rec-macro-lbl">Carbs</span>
+                    <span class="rec-macro-val" id="recognized-carbs">18g</span>
+                  </div>
+                  <div class="rec-macro">
+                    <span class="rec-macro-lbl">Fats</span>
+                    <span class="rec-macro-val" id="recognized-fats">24g</span>
+                  </div>
+                </div>
+
+                <div class="scanner-result-actions">
+                  <button class="result-add-btn" id="btn-add-recognized-food">Log Food</button>
+                  <button class="result-cancel-btn" id="btn-retry-scan">Try Again</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OVERLAY 3: MANUAL INPUT DIALOG -->
+        <div class="modal-overlay" id="overlay-manual-input">
+          <div class="manual-input-dialog">
+            <div class="dialog-header">
+              <h3>Log Food Manually</h3>
+              <button class="close-dialog-btn" id="btn-close-manual-dialog">✕</button>
+            </div>
+
+            <form class="manual-food-form" id="manual-food-form" onsubmit="return false;">
+              <div class="form-group">
+                <label for="form-food-name">Food Name</label>
+                <input type="text" id="form-food-name" placeholder="e.g. Chicken breast grilled" required>
+              </div>
+
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label for="form-calories">Calories (kcal)</label>
+                  <input type="number" id="form-calories" placeholder="350" min="0" required>
+                </div>
+                <div class="form-group">
+                  <label for="form-protein">Protein (g)</label>
+                  <input type="number" id="form-protein" placeholder="25" min="0">
+                </div>
+              </div>
+
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label for="form-carbs">Carbs (g)</label>
+                  <input type="number" id="form-carbs" placeholder="10" min="0">
+                </div>
+                <div class="form-group">
+                  <label for="form-fats">Fats (g)</label>
+                  <input type="number" id="form-fats" placeholder="8" min="0">
+                </div>
+              </div>
+
+              <button type="submit" class="submit-food-btn" id="btn-submit-manual-food">Add to Log</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- OVERLAY 4: PREMIUM CELEBRATION CONFETTI OVERLAY -->
+        <div class="modal-overlay hidden" id="overlay-premium-celebration">
+          <div class="celebration-content">
+            <div class="confetti-holder" id="confetti-container"></div>
+            <div class="medal-bounce-container">
+              <svg viewBox="0 0 24 24" width="100" height="100" class="celebration-gold-medal">
+                <circle cx="12" cy="12" r="10" fill="gold"></circle>
+                <path d="M12 2l3 6 7.5.5-5.5 5 1.5 7.5-6.5-4-6.5 4 1.5-7.5-5.5-5L9 8z" fill="#FFF8DC"></path>
+                <path d="M12 6l1.8 3.6 4.1.3-3 2.7.9 4-3.8-2.3L8.2 16.6l.9-4-3-2.7 4.1-.3z" fill="gold"></path>
+              </svg>
+            </div>
+            <h2>Premium Activated!</h2>
+            <p>Congratulations, you now have unlimited AI scans and advanced metabolic trend tracking.</p>
+            <button class="celebration-close-btn" id="btn-close-celebration">Start Using Premium</button>
+          </div>
+        </div>
+
+        <!-- Global toast notifications -->
+        <div class="toast-notification" id="toast-notify">Food item logged successfully!</div>
+
+      </div> <!-- /phone-screen -->
+    </div> <!-- /phone-frame -->
+  </div> <!-- /app-container -->
+
+  <script src="app.js"></script>
+</body>
+</html>
