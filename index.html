@@ -52,6 +52,58 @@
           </button>
         </header>
 
+        <!-- Top Navigation Bar -->
+        <nav class="app-nav-bar">
+          <button class="nav-tab active" data-screen="home" id="tab-home">
+            <div class="tab-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" class="tab-icon">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+            </div>
+            <span class="tab-label">Home</span>
+          </button>
+
+          <button class="nav-tab" data-screen="scan" id="tab-scan">
+            <div class="tab-icon-box">
+              <!-- Scan Barcode Icon -->
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon" id="nav-scan-barcode-icon">
+                <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"></path>
+                <line x1="7" y1="12" x2="17" y2="12"></line>
+              </svg>
+              <!-- Input Checklist Icon (Hidden by default, shown if toggle selected) -->
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon hidden" id="nav-scan-list-icon">
+                <line x1="9" y1="6" x2="20" y2="6"></line>
+                <line x1="9" y1="12" x2="20" y2="12"></line>
+                <line x1="9" y1="18" x2="20" y2="18"></line>
+                <rect x="3" y="5" width="2" height="2" rx="0.5"></rect>
+                <rect x="3" y="11" width="2" height="2" rx="0.5"></rect>
+                <rect x="3" y="17" width="2" height="2" rx="0.5"></rect>
+              </svg>
+            </div>
+            <span class="tab-label" id="tab-scan-label">Scan</span>
+          </button>
+
+          <button class="nav-tab" data-screen="history" id="tab-history">
+            <div class="tab-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <span class="tab-label">History</span>
+          </button>
+
+          <button class="nav-tab" data-screen="profile" id="tab-profile">
+            <div class="tab-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <span class="tab-label">Profile</span>
+          </button>
+        </nav>
+
         <!-- Dynamic Main Scrollable Screens Area -->
         <main class="app-main-content">
 
@@ -410,57 +462,7 @@
 
         </main>
 
-        <!-- Bottom Navigation Bar -->
-        <nav class="app-nav-bar">
-          <button class="nav-tab active" data-screen="home" id="tab-home">
-            <div class="tab-icon-box">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" class="tab-icon">
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-              </svg>
-            </div>
-            <span class="tab-label">Home</span>
-          </button>
 
-          <button class="nav-tab" data-screen="scan" id="tab-scan">
-            <div class="tab-icon-box">
-              <!-- Scan Barcode Icon -->
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon" id="nav-scan-barcode-icon">
-                <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"></path>
-                <line x1="7" y1="12" x2="17" y2="12"></line>
-              </svg>
-              <!-- Input Checklist Icon (Hidden by default, shown if toggle selected) -->
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon hidden" id="nav-scan-list-icon">
-                <line x1="9" y1="6" x2="20" y2="6"></line>
-                <line x1="9" y1="12" x2="20" y2="12"></line>
-                <line x1="9" y1="18" x2="20" y2="18"></line>
-                <rect x="3" y="5" width="2" height="2" rx="0.5"></rect>
-                <rect x="3" y="11" width="2" height="2" rx="0.5"></rect>
-                <rect x="3" y="17" width="2" height="2" rx="0.5"></rect>
-              </svg>
-            </div>
-            <span class="tab-label" id="tab-scan-label">Scan</span>
-          </button>
-
-          <button class="nav-tab" data-screen="history" id="tab-history">
-            <div class="tab-icon-box">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-            </div>
-            <span class="tab-label">History</span>
-          </button>
-
-          <button class="nav-tab" data-screen="profile" id="tab-profile">
-            <div class="tab-icon-box">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </div>
-            <span class="tab-label">Profile</span>
-          </button>
-        </nav>
 
         <!-- Phone Home Indicator Bar at very bottom -->
         <div class="phone-home-indicator"></div>
